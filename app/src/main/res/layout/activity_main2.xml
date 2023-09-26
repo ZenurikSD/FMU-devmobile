@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity2">
+
+    <TextView
+        android:id="@+id/textValor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="18dp"
+        android:text="@string/valor"
+        app:layout_constraintBottom_toTopOf="@+id/seekBar"
+        app:layout_constraintEnd_toStartOf="@+id/textViewValor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextValor" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/TextView2"
+        app:layout_constraintEnd_toStartOf="@+id/textViewPct"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textValor" />
+
+    <TextView
+        android:id="@+id/textViewPct"
+        android:layout_width="134dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="75dp"
+        android:layout_marginBottom="70dp"
+        android:text="0"
+        app:layout_constraintBottom_toTopOf="@+id/TextView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/seekBar"
+        app:layout_constraintTop_toBottomOf="@+id/editTextValor" />
+
+    <EditText
+        android:id="@+id/editTextValor"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="33dp"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/textValor"
+        app:layout_constraintEnd_toEndOf="@+id/textViewValor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/TextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="57dp"
+        android:layout_marginBottom="24dp"
+        android:text="@string/txt_gorjeta"
+        app:layout_constraintBottom_toTopOf="@+id/TextView3"
+        app:layout_constraintEnd_toStartOf="@+id/textViewGorjeta"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+
+    <TextView
+        android:id="@+id/textViewTotal"
+        android:layout_width="75dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="201dp"
+        android:text="0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/TextView3"
+        app:layout_constraintTop_toBottomOf="@+id/textViewGorjeta" />
+
+    <TextView
+        android:id="@+id/textViewGorjeta"
+        android:layout_width="78dp"
+        android:layout_height="29dp"
+        android:layout_marginEnd="202dp"
+        android:text="0"
+        app:layout_constraintBottom_toBottomOf="@+id/TextView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/TextView2"
+        app:layout_constraintTop_toTopOf="@+id/TextView2" />
+
+    <TextView
+        android:id="@+id/TextView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="33dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginBottom="480dp"
+        android:text="@string/vl_total"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textViewTotal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TextView2" />
+
+    <TextView
+        android:id="@+id/textViewValor"
+        android:layout_width="77dp"
+        android:layout_height="26dp"
+        android:layout_marginEnd="200dp"
+        android:text="0"
+        app:layout_constraintBottom_toBottomOf="@+id/textValor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textValor"
+        app:layout_constraintTop_toTopOf="@+id/textValor" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
