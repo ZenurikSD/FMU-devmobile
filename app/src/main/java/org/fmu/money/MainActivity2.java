@@ -16,7 +16,7 @@ public class MainActivity2 extends AppCompatActivity {
     private EditText edit_valor;
     private TextView view_valor, view_gorjeta, view_total, view_pct;
     private SeekBar seekbar;
-    private Double valor, pct;
+    private Double valor, pct, gorjeta, total;
     private NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
     private NumberFormat percentFormat = NumberFormat.getPercentInstance();
 
@@ -56,9 +56,28 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) { }
         });
+
+        //On change para o seekbar
+        seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                pct = i/100.0;
+                view_pct.setText(percentFormat.format(pct));
+                updateValues();
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
     }
 
     private void updateValues(){
-        view_valor.setText(currencyFormat.format(valor));
+        gorjeta = valor * pct;
+        total = valor + gorjeta;
+        view_gorjeta.setText(currencyFormat.format(gorjeta));
+        view_total.setText(currencyFormat.format(total));
     }
 }
