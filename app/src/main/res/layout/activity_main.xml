@@ -50,7 +50,7 @@
         android:onClick="calculateResult"
         android:text="@string/txt_somar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.077"
+        app:layout_constraintHorizontal_bias="0.087"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/result" />
 
@@ -60,7 +60,19 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="128dp"
         android:onClick="openTipCalc"
-        android:text="@string/janela2"
+        android:text="@string/txt_calc_open"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.153"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/result" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:onClick="openDesenho"
+        android:text="@string/txt_desenho_open"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.104"
         app:layout_constraintStart_toStartOf="parent"

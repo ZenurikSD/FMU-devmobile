@@ -4,6 +4,8 @@
     <string name="txt_somar">Add</string>
     <string name="txt_gorjeta">Tip</string>
     <string name="janela2">Open Tip Calculator</string>
-    <string name="vl_total">Total</string>
-    <string name="valor">Amount</string>
+    <string name="txt_total">Total</string>
+    <string name="txt_valor">Amount</string>
+    <string name="txt_desenho_open">Open Drawing</string>
+    <string name="txt_calc_open">Open Tip Calculator</string>
 </resources>

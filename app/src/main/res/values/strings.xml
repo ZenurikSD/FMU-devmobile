@@ -4,6 +4,9 @@
     <string name="txt_gorjeta">Gorjeta</string>
     <string name="janela2">Abrir Tip Calculator</string>
 
-    <string name="vl_total">Total</string>
-    <string name="valor">Valor</string>
+    <string name="txt_total">Total</string>
+    <string name="txt_valor">Valor</string>
+
+    <string name="txt_desenho_open">Abrir Desenho</string>
+    <string name="txt_calc_open">Abrir Calculadora de Gorjeta</string>
 </resources>

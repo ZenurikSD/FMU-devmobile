@@ -30,7 +30,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openTipCalc(View view){
-        Intent intent = new Intent(this, MainActivity2.class);
+        Intent intent = new Intent(this, TipCalculatorActivity.class);
+        startActivity(intent);
+    }
+
+    public void openDesenho(){
+        Intent intent = new Intent(this, DesenhoActivity.class);
         startActivity(intent);
     }
 }
