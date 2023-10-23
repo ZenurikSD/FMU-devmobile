@@ -144,7 +144,4 @@ public class DesenhoView extends View {
         }
         invalidate();
     }
-
-
-
 }
