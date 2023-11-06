@@ -1,2 +1,2 @@
-# App de controle de gastos
-Repositório para o projeto do app
+### Branch projeto da aula
+Contém **apenas** conteúdo das aulas. Muito incompleto mas ao menos tá organizado

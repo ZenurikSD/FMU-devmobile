@@ -22,10 +22,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DesenhoActivity"
+            android:name="draw.DesenhoActivity"
             android:exported="false" />
         <activity
-            android:name=".TipCalculatorActivity"
+            android:name="tips.TipCalculatorActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity2"

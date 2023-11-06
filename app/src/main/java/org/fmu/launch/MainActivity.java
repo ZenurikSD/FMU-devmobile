@@ -1,4 +1,4 @@
-package org.fmu.money;
+package org.fmu.launch;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import draw.DesenhoActivity;
+import tips.TipCalculatorActivity;
 
 public class MainActivity extends AppCompatActivity {
     private EditText n1, n2, result;

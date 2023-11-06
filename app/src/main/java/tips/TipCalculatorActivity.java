@@ -1,4 +1,4 @@
-package org.fmu.money;
+package tips;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import org.fmu.launch.R;
 
 import java.text.NumberFormat;
 
@@ -30,7 +30,7 @@ public class TipCalculatorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tip_calculator);
+        setContentView(R.layout.activity_tips);
         editTextValor = findViewById(R.id.editTextValor);
         textViewValor = findViewById(R.id.textViewValor);
         seekBar = findViewById(R.id.seekBar);

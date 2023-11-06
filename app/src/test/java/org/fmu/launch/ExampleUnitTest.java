@@ -1,4 +1,4 @@
-package org.fmu.money;
+package org.fmu.launch;
 
 import org.junit.Test;
 
