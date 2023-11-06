@@ -1,4 +1,4 @@
-package org.fmu.launch;
+package main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
