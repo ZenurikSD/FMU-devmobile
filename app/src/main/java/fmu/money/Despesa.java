@@ -1,4 +1,4 @@
-package me.material;
+package fmu.money;
 
 public class Despesa{
     private int id;

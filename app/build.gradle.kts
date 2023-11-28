@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "me.material"
+    namespace = "fmu.money"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "me.material"
+        applicationId = "fmu.money"
         minSdk = 24
         targetSdk = 33
         versionCode = 1
