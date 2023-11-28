@@ -1,4 +1,4 @@
-package fmu.money;
+package me.material;
 
 import org.junit.Test;
 
