@@ -1,28 +1,25 @@
 package fmu.money;
 
 import java.util.Calendar;
-
 import fmu.money.utils.CalendarUtils;
 
-public class Despesa{
+public class Receita {
     private int id;
-    private String categoria;
-    private String descricao;
+    private String nome;
     private double valor;
     private Calendar data;
     private int recorrencia;
 
-    public Despesa(String categoria, double valor) {
-        this.categoria = categoria;
+    public Receita(double valor) {
+        this.nome = "Entrada";
         this.valor = valor;
         this.data = Calendar.getInstance();
         this.recorrencia = 1;
     }
 
-    public Despesa(String categoria, double valor, String descricao, Calendar data, int recorrencia) {
-        this.categoria = categoria;
+    public Receita(String nome, double valor, Calendar data, int recorrencia) {
+        this.nome = nome;
         this.valor = valor;
-        this.descricao = descricao;
         this.data = data;
         this.recorrencia = recorrencia;
     }
@@ -31,11 +28,11 @@ public class Despesa{
         return id;
     }
 
-    public String getCategoria() {
-        return categoria;
+    public String getNome() {
+        return nome;
     }
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public double getValor() {
@@ -43,13 +40,6 @@ public class Despesa{
     }
     public void setValor(double valor) {
         this.valor = valor;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
     }
 
     public Calendar getData() {
@@ -69,9 +59,8 @@ public class Despesa{
     @Override
     public String toString(){
         return
-            "ID #" + id +
-            "\nCategoria: " + this.categoria +
-            "\nDescrição: " + this.descricao +
+            "ID #" + id + 
+            "\n" + this.nome +
             "\nR$ " + this.valor +
             "\nData: " + CalendarUtils.getDataString(this.data) +
             "\nRecorrência: " + this.recorrencia;

@@ -16,6 +16,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 
+import fmu.money.utils.CalendarUtils;
+
 // Adapter disponibiliza as Views que contém os itens do dataset
 public class DespesaRecViewAdapter extends RecyclerView.Adapter<DespesaRecViewAdapter.ViewHolder>{
     ArrayList<Despesa> despesas = new ArrayList<>();
@@ -55,9 +57,9 @@ public class DespesaRecViewAdapter extends RecyclerView.Adapter<DespesaRecViewAd
     // Manipulação dos atributos e elementos da View (card)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.category.setText( String.valueOf(despesas.get(position).getCategoriaIndex()) );
+        holder.category.setText( despesas.get(position).getCategoria() );
         holder.description.setText(despesas.get(position).getDescricao());
-        holder.date.setText(despesas.get(position).getData());
+        holder.date.setText(CalendarUtils.getDataString(despesas.get(position).getData()));  //mds quanto método
 
         String formatvalue = "R$ " + despesas.get(position).getValor();
         holder.valueBrl.setText(formatvalue);

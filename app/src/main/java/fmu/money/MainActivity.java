@@ -12,8 +12,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FloatingActionButton fab;
     private RelativeLayout parent;
@@ -21,6 +23,17 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView cardsRecView;
     private ArrayList<Despesa> despesas;
     private DespesaRecViewAdapter despesaAdapter;
+
+    //OnClickListeners vão aqui
+    @Override
+    public void onClick(View view){
+        int viewId = view.getId();
+
+        if (viewId == R.id.fab){
+            despesas.add(new Despesa("Emergência", 4500, "Conserto do carro", Calendar.getInstance(), 1));
+            despesaAdapter.setDespesas(despesas);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +44,12 @@ public class MainActivity extends AppCompatActivity {
          * Instancia uma lista de itens e o Adapter que eu criei
          * Passa a lista para o adapter e define ele na RecyclerView dessa atividade
          * Define um gerenciador de layout linear para a RecyclerView usar
+         * Temporário, tem que mover pra implementação no banco
          */
         despesas = new ArrayList<>();
-        despesas.add(new Despesa(1, 250, "Mercado", "26/11/2023", 1));
-        despesas.add(new Despesa(2, 780, "Aluguel", "26/11/2023", 1));
-        despesas.add(new Despesa(3, 1250, "Viagem à Buenos Aires", "26/11/2023", 1));
+        despesas.add(new Despesa("Alimentação", 250, "Mercado Carrefour", Calendar.getInstance(), 1));
+        despesas.add(new Despesa("Moradia", 780, "Aluguel", Calendar.getInstance(), 1));
+        despesas.add(new Despesa("Lazer", 1250, "Viagem à Buenos Aires", Calendar.getInstance(), 1));
 
         cardsRecView = findViewById(R.id.cardsRecView);
         despesaAdapter = new DespesaRecViewAdapter(this);
@@ -47,24 +61,6 @@ public class MainActivity extends AppCompatActivity {
         // FAB
         parent = findViewById(R.id.parent);
         fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //apenas um teste...
-                despesas.add(new Despesa(4, 4500, "Conserto do carro", "26/11/2023", 1));
-                despesaAdapter.setDespesas(despesas);
-
-                /*
-                Snackbar.make(parent, "Floating action button clicked", BaseTransientBottomBar.LENGTH_INDEFINITE)
-                        .setAction("Dismiss", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(MainActivity.this, "Snackbar dismissed", Toast.LENGTH_SHORT).show();
-                            }
-                        }).show();
-                 */
-            }
-        });
+        fab.setOnClickListener(this);
     }
 }
