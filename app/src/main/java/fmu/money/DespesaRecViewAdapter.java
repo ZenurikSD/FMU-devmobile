@@ -57,7 +57,7 @@ public class DespesaRecViewAdapter extends RecyclerView.Adapter<DespesaRecViewAd
     // Manipulação dos atributos e elementos da View (card)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.category.setText( despesas.get(position).getCategoria() );
+        holder.category.setText(despesas.get(position).getCategoria());
         holder.description.setText(despesas.get(position).getDescricao());
         holder.date.setText(CalendarUtils.getDataString(despesas.get(position).getData()));  //mds quanto método
 
