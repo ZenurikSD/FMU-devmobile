@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="categorias">
+        <item>@string/Lazer</item>
+        <item>@string/Fatura</item>
+        <item>@string/Parcelamento</item>
+        <item>@string/Saldo</item>
+    </string-array>
+</resources>

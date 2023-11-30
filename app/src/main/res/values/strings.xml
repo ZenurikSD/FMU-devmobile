@@ -2,4 +2,9 @@
     <string name="app_name">MaterialDesign</string>
     <string name="dismiss">Dismiss</string>
     <string name="brl">R$</string>
+    <string name="app_name">Fmu-App-Pay</string>
+    <string name="Saldo">Saldo\n</string>
+    <string name="Fatura">Fatura\n</string>
+    <string name="Parcelamento">Parcelamento\n</string>
+    <string name="Lazer">Lazer\n</string>
 </resources>
