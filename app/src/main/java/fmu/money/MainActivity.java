@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         despesaDAO.addDespesa(new Despesa("Moradia", 780, "Aluguel", Calendar.getInstance(), 1));
         despesaDAO.addDespesa(new Despesa("Lazer", 1250, "Viagem à Buenos Aires", Calendar.getInstance(), 1));
 
-        cardsRecView = findViewById(R.id.cardsRecView);
+       // cardsRecView = findViewById(R.id.cardsRecView);
         despesaAdapter = new DespesaRecViewAdapter(this);
         despesaAdapter.setDespesas(despesaDAO.listDespesas());
 
@@ -63,8 +64,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cardsRecView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true));
 
         // FAB
-        parent = findViewById(R.id.parent);
-        fab = findViewById(R.id.fab);
+        //parent = findViewById(R.id.parent);
+        //fab = findViewById(R.id.fab);
         fab.setOnClickListener(this);
+    }
+
+    public void onInfo(View view){
+        Intent in = new Intent(MainActivity.this, Info.class);
+        startActivity(in);
+    }
+    public void abrirModal(View view){
+        AddDialogFragment add = new AddDialogFragment();
+        add.show(getSupportFragmentManager(), "add");
     }
 }
