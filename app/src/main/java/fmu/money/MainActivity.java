@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RecyclerView cardsRecView;
     private DespesaRecViewAdapter despesaAdapter;
     private DespesaFakeDAO despesaDAO;
+    private Intent intent;
 
     //OnClickListeners vão aqui
     @Override
@@ -34,6 +36,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (viewId == R.id.fab){
             despesaDAO.addDespesa(new Despesa("Emergência", 4500, "Conserto do carro", Calendar.getInstance(), 1));
             despesaAdapter.setDespesas(despesaDAO.listDespesas());
+        } else if (viewId == R.id.btnReceitaList){
+            intent = new Intent(this, ReceitaListActivity.class);
+            startActivity(intent);
         }
     }
 
