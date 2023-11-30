@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -20,6 +21,7 @@ import fmu.money.db.DespesaFakeDAO;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private Button btnReceitaList;
     private FloatingActionButton fab;
     private RelativeLayout parent;
     private Snackbar snackbar;
@@ -68,8 +70,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cardsRecView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true));
 
         // FAB
-        parent = findViewById(R.id.parent);
         fab = findViewById(R.id.fab);
         fab.setOnClickListener(this);
+
+        //ReceitaActivity
+        btnReceitaList = findViewById(R.id.btnReceitaList);
+        btnReceitaList.setOnClickListener(this);
+
     }
 }
