@@ -8,6 +8,8 @@ App de controle de gastos
 - [X] Exibir conteúdo salvo
 - [X] Lista de despesas
 - [ ] Lista de receitas
+- [ ] Adicionar despesa
+- [ ] Adicionar receita
 - [ ] Cálculo de saldo
 - [ ] Filtro de visualização mensal
 
