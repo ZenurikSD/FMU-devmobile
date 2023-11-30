@@ -1,8 +1,8 @@
 ## Projeto FMU - Disciplina Computação Móvel (Desenvolvimento Android)
 App de controle de gastos
 
-### Progresso
-### Funcionalidade básica
+## Progresso
+#### Funcionalidade básica
 - [X] Adicionar card
 - [X] Remover card
 - [X] Exibir conteúdo salvo
