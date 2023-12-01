@@ -8,18 +8,18 @@ public class UserFakeDAO implements UserDAOInterface {
 
     @Override
     public boolean createUser(User user) {
-        storage.setUser(user);
+        storage.setSavedUser(user);
         return true;
     }
 
     @Override
     public User getUser() {
-        return storage.getUser();
+        return storage.getSavedUser();
     }
 
     @Override
-    public boolean updateUser(User user) {
-        storage.setUser(user);
+    public boolean updateUserSaldo(double valor) {
+        storage.getSavedUser().updateSaldo(valor);
         return true;
     }
 }

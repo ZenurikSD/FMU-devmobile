@@ -3,7 +3,7 @@ package fmu.money.db.interfaces;
 import fmu.money.User;
 
 public interface UserDAOInterface {
-    /** Adiciona o usuário ao banco
+    /** Adiciona o usuário ao banco, faça apenas uma vez.
      * @param user
      * @return TRUE se sucesso
      */
@@ -14,5 +14,9 @@ public interface UserDAOInterface {
      */
     User getUser();
 
-    boolean updateUser(User user);
+    /** Atualiza o saldo do usuário no banco
+     * @param valor
+     * @return TRUE se sucesso
+     */
+    boolean updateUserSaldo(double valor);
 }

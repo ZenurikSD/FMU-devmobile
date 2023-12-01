@@ -53,19 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             despesaAdapter.updateDataSet(despesaDAO.listDespesas());
 
-
-            // nem sei mais o que to fazendo
-            for (Receita r : receitaDAO.listReceitas()){
-                user.updateSaldo(r.getValor());
-            }
-            for (Despesa d : despesaDAO.listDespesas()){
-                user.updateSaldo(d.getValor());
-            }
-
-            userDAO.updateUser(user);
-
-            String concat = "R$ " + userDAO.getUser().getSaldo();
-            txtSaldo.setText(concat);
+            updateUiSaldo();
 
         } else if (viewId == R.id.btnReceitaList){
             intent = new Intent(this, ReceitaListActivity.class);
@@ -90,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         despesaDAO = new DespesaFakeDAO();
         receitaDAO = new ReceitaFakeDAO();
         userDAO = new UserFakeDAO();
-        user = new User("Alisson");
+        user = new User();
 
         despesaAdapter = new DespesaRecViewAdapter(this);
         despesaAdapter.updateDataSet(despesaDAO.listDespesas());
@@ -107,5 +95,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnReceitaList = findViewById(R.id.btnReceitaList);
         btnReceitaList.setOnClickListener(this);
 
+    }
+
+    private void updateUiSaldo(){
+        //TODO Atualizar o componente de saldo com a soma de despesas e receitas
     }
 }

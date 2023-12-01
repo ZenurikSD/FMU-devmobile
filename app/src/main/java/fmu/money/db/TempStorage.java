@@ -27,15 +27,16 @@ public class TempStorage {
     }
 
     private TempStorage(){
+        this.user = new User();
         this.receitaList = new ArrayList<>();
         this.despesaList = new ArrayList<>();
     }
 
-    public User getUser() {
+    public User getSavedUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setSavedUser(User user) {
         this.user = user;
     }
 

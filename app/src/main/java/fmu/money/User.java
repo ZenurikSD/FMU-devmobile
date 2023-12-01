@@ -4,10 +4,6 @@ public class User {
     private String nome;
     private double saldo;
 
-    public User(String nome){
-        this.nome = nome;
-    }
-
     public String getNome() {
         return nome;
     }

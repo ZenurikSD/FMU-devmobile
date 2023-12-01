@@ -42,7 +42,7 @@ public class ReceitaListActivity extends AppCompatActivity implements View.OnCli
 
         receitaDAO = new ReceitaFakeDAO();
         userDAO = new UserFakeDAO();
-        user = new User("Alisson");
+        user = new User();
 
         receitaAdapter = new ReceitaViewAdapter(this);
         receitaAdapter.updateDataSet(receitaDAO.listReceitas());
@@ -53,11 +53,5 @@ public class ReceitaListActivity extends AppCompatActivity implements View.OnCli
 
         fabAddReceita = findViewById(R.id.fabAddReceita);
         fabAddReceita.setOnClickListener(this);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        receitaAdapter.updateDataSet(null);
     }
 }
