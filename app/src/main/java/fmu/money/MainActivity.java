@@ -62,10 +62,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         despesaDAO.addDespesa(new Despesa("Moradia", 780, "Aluguel", Calendar.getInstance(), 1));
         despesaDAO.addDespesa(new Despesa("Lazer", 1250, "Viagem à Buenos Aires", Calendar.getInstance(), 1));
 
-        cardsRecView = findViewById(R.id.cardsRecView);
         despesaAdapter = new DespesaRecViewAdapter(this);
         despesaAdapter.setDespesas(despesaDAO.listDespesas());
 
+        cardsRecView = findViewById(R.id.cardsRecView);
         cardsRecView.setAdapter(despesaAdapter);
         cardsRecView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true));
 

@@ -1,5 +1,7 @@
 package fmu.money;
 
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -13,7 +15,8 @@ import fmu.money.db.UserTempStorage;
 import fmu.money.utils.CalendarUtils;
 
 public class ReceitaViewAdapter extends RecyclerView.Adapter<ReceitaViewAdapter.ViewHolder>{
-    UserTempStorage user = UserTempStorage.getInstancia();
+    private ArrayList<Receita> receitas;
+    private Context context;
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView recNome, recData, recValorBrl;
@@ -26,25 +29,34 @@ public class ReceitaViewAdapter extends RecyclerView.Adapter<ReceitaViewAdapter.
         }
     }
 
+    public ReceitaViewAdapter(Context context){
+        this.context = context;
+    }
+
     @NonNull
     @Override
     public ReceitaViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View parentView = new View(parent.getContext());
-        return new ViewHolder(parentView);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.receita_card_item_layout, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ReceitaViewAdapter.ViewHolder holder, int position) {
-        String dataString = CalendarUtils.getDataString(user.getReceitaList().get(position).getData());
+        String dataString = CalendarUtils.getDataString(receitas.get(position).getData());
         holder.recData.setText(dataString);
 
-        String valorString = String.valueOf(user.getReceitaList().get(position).getValor());
+        String valorString = String.valueOf(receitas.get(position).getValor());
         holder.recValorBrl.setText(valorString);
     }
 
     @Override
     public int getItemCount() {
-        return user.getDespesaList().size();
+        return receitas.size();
+    }
+
+    public void updateDataSet(ArrayList<Receita> receitas){
+        this.receitas = receitas;
+        notifyDataSetChanged();
     }
 }
 
