@@ -4,17 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
 import fmu.money.db.ReceitaFakeDAO;
-import fmu.money.db.UserTempStorage;
+import fmu.money.db.UserFakeDAO;
 
 public class ReceitaListActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -23,15 +21,18 @@ public class ReceitaListActivity extends AppCompatActivity implements View.OnCli
     private FloatingActionButton fabAddReceita;
     private ReceitaFakeDAO receitaDAO;
     private ArrayList<Receita> receitaList;
+    private UserFakeDAO userDAO;
+    private User user;
 
     @Override
     public void onClick(View v) {
         int viewId = v.getId();
 
-        if (viewId == R.id.fabAddReceita){
-            receitaDAO.addReceita(new Receita(99999.99));
-            receitaAdapter.updateDataSet(receitaDAO.listReceitas());
+        /*
+        if (viewId == R.id.){
+
         }
+         */
     }
 
     @Override
@@ -40,9 +41,8 @@ public class ReceitaListActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_receita_list);
 
         receitaDAO = new ReceitaFakeDAO();
-        receitaDAO.addReceita(new Receita(2500.00));
-        receitaDAO.addReceita(new Receita(1250.10));
-        receitaDAO.addReceita(new Receita(30999.95));
+        userDAO = new UserFakeDAO();
+        user = new User("Alisson");
 
         receitaAdapter = new ReceitaViewAdapter(this);
         receitaAdapter.updateDataSet(receitaDAO.listReceitas());

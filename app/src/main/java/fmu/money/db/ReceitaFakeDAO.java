@@ -9,21 +9,21 @@ import fmu.money.db.interfaces.ReceitaDAOInterface;
  * Utiliza um singleton de armazenamento temporário para simular as interações com o banco
  */
 public class ReceitaFakeDAO implements ReceitaDAOInterface{
-    private UserTempStorage user = UserTempStorage.getInstancia();
+    private TempStorage storage = TempStorage.getInstancia();
 
     @Override
     public ArrayList<Receita> listReceitas() {
-        return user.getReceitaList();
+        return storage.getReceitaList();
     }
 
     @Override
     public Receita getReceita(int id) {
-        return user.getReceitaList().get(id);
+        return storage.getReceitaList().get(id);
     }
 
     @Override
     public boolean addReceita(Receita receita) {
-        return user.getReceitaList().add(receita);
+        return storage.getReceitaList().add(receita);
     }
 
     /** Não faz nada por enquanto. Não use. */
@@ -34,7 +34,7 @@ public class ReceitaFakeDAO implements ReceitaDAOInterface{
 
     @Override
     public boolean removeReceita(int id) {
-        Receita temp = user.getReceitaList().get(id);
-        return user.getReceitaList().remove(temp);
+        Receita temp = storage.getReceitaList().get(id);
+        return storage.getReceitaList().remove(temp);
     }
 }
