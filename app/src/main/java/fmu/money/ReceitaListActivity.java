@@ -7,56 +7,88 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
-
+import fmu.money.db.modelos.Receita;
 import fmu.money.db.ReceitaFakeDAO;
 import fmu.money.db.UserFakeDAO;
-import fmu.money.db.modelos.Receita;
-import fmu.money.db.modelos.User;
 
 public class ReceitaListActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private RecyclerView receitaRecView;
+    private TextView txtSomaReceitas;
+    private FloatingActionButton fabReturnMain, fabAddReceita;
+    private RecyclerView cardsRecView;
     private ReceitaViewAdapter receitaAdapter;
-    private FloatingActionButton fabReturnMain;
     private ReceitaFakeDAO receitaDAO;
-    private ArrayList<Receita> receitaList;
     private UserFakeDAO userDAO;
-    private User user;
 
     @Override
     public void onClick(View v) {
         int viewId = v.getId();
         Intent reopenMainActivity;
+        Receita receita;
 
-        if (viewId == R.id.fabReturnMain){
+        if (viewId == R.id.fabAddReceita){
+            // Versão teste, substitua pela implementação do banco
+            // Adiciona uma receita ao storage, atualiza o Adapter com a lista nova, incrementa o saldo total
+
+            receita = new Receita(1000);
+
+            receitaDAO.addReceita(receita);
+            receitaAdapter.updateDataSet(receitaDAO.listReceitas());
+
+            userDAO.updateUserSaldo(receita.getValor());
+
+            String nvvalor = "R$ " + receitaDAO.getTotal();
+            txtSomaReceitas.setText(nvvalor);
+
+        } else if (viewId == R.id.fabReturnMain){
             reopenMainActivity = new Intent(this, MainActivity.class);
 
             //Coloca a MainActivity no topo se já estiver iniciada (não chama o onCreate() dela repetidamente sem motivo)
             reopenMainActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivityIfNeeded(reopenMainActivity, 0);
+
         }
     }
 
+    //⚠️ Reserve para criar instâncias e associar dados à variáveis/objetos, não faça operações de UI aqui
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_receita_list);
 
+        // DAOs ====================================================================================
         receitaDAO = new ReceitaFakeDAO();
         userDAO = new UserFakeDAO();
 
+        // Componentes simples =====================================================================
+        txtSomaReceitas = findViewById(R.id.txtSomaReceitas);
+
+        // Cards RecyclerView ======================================================================
+        cardsRecView = findViewById(R.id.cardsRecView);
         receitaAdapter = new ReceitaViewAdapter(this);
-        receitaAdapter.updateDataSet(receitaDAO.listReceitas());
 
-        receitaRecView = findViewById(R.id.cardsReceitaRecView);
-        receitaRecView.setAdapter(receitaAdapter);
-        receitaRecView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        cardsRecView.setAdapter(receitaAdapter);
+        cardsRecView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
+        // Bottom FABs onClicks ====================================================================
         fabReturnMain = findViewById(R.id.fabReturnMain);
         fabReturnMain.setOnClickListener(this);
+
+        fabAddReceita = findViewById(R.id.fabAddReceita);
+        fabAddReceita.setOnClickListener(this);
+    }
+
+    //Após onCreate, operações que atualizam a UI
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        String nvvalor = "R$ " + receitaDAO.getTotal();
+        txtSomaReceitas.setText(nvvalor);
+
+        receitaAdapter.updateDataSet(receitaDAO.listReceitas());
     }
 }

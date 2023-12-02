@@ -8,6 +8,7 @@ import fmu.money.db.modelos.Receita;
 /** Classe DAO falsa que usa armazenamento temporário. Substitua pela implementação do banco  */
 public class ReceitaFakeDAO implements ReceitaDAOInterface{
     private TempStorage storage = TempStorage.getInstancia();
+    private double total = 0;
 
     @Override
     public ArrayList<Receita> listReceitas() {
@@ -24,15 +25,19 @@ public class ReceitaFakeDAO implements ReceitaDAOInterface{
         return storage.getReceitaList().add(receita);
     }
 
-    /** Não faz nada por enquanto. Não use. */
-    @Override
-    public boolean updateReceita(Receita receita) {
-        return false;
-    }
-
     @Override
     public boolean removeReceita(int id) {
         Receita temp = storage.getReceitaList().get(id);
         return storage.getReceitaList().remove(temp);
     }
+
+    public double getTotal(){
+        total = 0;
+
+        for (Receita r : storage.getReceitaList()){
+            total += r.getValor();
+        }
+
+        return total;
+    };
 }
