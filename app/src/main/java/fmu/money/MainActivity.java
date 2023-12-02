@@ -1,19 +1,15 @@
 package fmu.money;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Calendar;
 
@@ -38,14 +34,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view){
         int viewId = view.getId();
+        Intent intent;
 
         if (viewId == R.id.fabAdd){
             AddDialogFragment addModal = new AddDialogFragment();
             addModal.show(getSupportFragmentManager(), "add");
 
+            //Teste de cards
+            despesaDAO.addDespesa(new Despesa("Lazer", 2500,"Viagem à Recife", Calendar.getInstance(), 1));
+            despesaDAO.addDespesa(new Despesa("Alimentação", 125.99,"Mercado Assaí", Calendar.getInstance(), 1));
+            despesaDAO.addDespesa(new Despesa("Saúde", 450,"Oftalmologista", Calendar.getInstance(), 1));
+            despesaAdapter.updateDataSet(despesaDAO.listDespesas());
+
         } else if (viewId == R.id.fabInfo){
-            Intent in = new Intent(this, InfoActivity.class);
-            startActivity(in);
+            intent = new Intent(this, InfoActivity.class);
+            startActivity(intent);
+
+        } else if (viewId == R.id.fabReceitas){
+            intent = new Intent(this, ReceitaListActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -79,11 +86,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cardsRecView.setAdapter(despesaAdapter);
         cardsRecView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true));
 
-        // FAB
+
+        // Bottom FABs onClicks ====================================================================
+        fabInfo = findViewById(R.id.fabInfo);
+        fabInfo.setOnClickListener(this);
+
         fabAdd = findViewById(R.id.fabAdd);
         fabAdd.setOnClickListener(this);
 
-        fabInfo = findViewById(R.id.fabInfo);
-        fabInfo.setOnClickListener(this);
+        fabReceitas = findViewById(R.id.fabReceitas);
+        fabReceitas.setOnClickListener(this);
+
     }
 }

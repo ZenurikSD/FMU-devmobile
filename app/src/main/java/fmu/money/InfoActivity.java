@@ -13,10 +13,4 @@ public class InfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
     }
-
-    public void onHome (View view){
-        Intent in = new Intent(this, MainActivity.class);
-        startActivity(in);
-    }
-
 }

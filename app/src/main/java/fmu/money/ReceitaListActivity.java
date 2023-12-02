@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -18,7 +19,7 @@ public class ReceitaListActivity extends AppCompatActivity implements View.OnCli
 
     private RecyclerView receitaRecView;
     private ReceitaViewAdapter receitaAdapter;
-    private FloatingActionButton fabAddReceita;
+    private FloatingActionButton fabReturnMain;
     private ReceitaFakeDAO receitaDAO;
     private ArrayList<Receita> receitaList;
     private UserFakeDAO userDAO;
@@ -27,12 +28,15 @@ public class ReceitaListActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         int viewId = v.getId();
+        Intent reopenMainActivity;
 
-        /*
-        if (viewId == R.id.){
+        if (viewId == R.id.fabReturnMain){
+            reopenMainActivity = new Intent(this, MainActivity.class);
 
+            //Coloca a MainActivity no topo se já estiver iniciada (não chama o onCreate() dela repetidamente sem motivo)
+            reopenMainActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivityIfNeeded(reopenMainActivity, 0);
         }
-         */
     }
 
     @Override
@@ -51,7 +55,7 @@ public class ReceitaListActivity extends AppCompatActivity implements View.OnCli
         receitaRecView.setAdapter(receitaAdapter);
         receitaRecView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        fabAddReceita = findViewById(R.id.fabAddReceita);
-        fabAddReceita.setOnClickListener(this);
+        fabReturnMain = findViewById(R.id.fabReturnMain);
+        fabReturnMain.setOnClickListener(this);
     }
 }
