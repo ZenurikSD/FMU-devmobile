@@ -49,7 +49,6 @@ public class ReceitaListActivity extends AppCompatActivity implements View.OnCli
             //Coloca a MainActivity no topo se já estiver iniciada (não chama o onCreate() dela repetidamente sem motivo)
             reopenMainActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivityIfNeeded(reopenMainActivity, 0);
-
         }
     }
 

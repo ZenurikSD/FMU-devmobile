@@ -24,7 +24,7 @@ public class DespesaRecViewAdapter extends RecyclerView.Adapter<DespesaRecViewAd
     ArrayList<Despesa> despesas = new ArrayList<>();
     private Context context;
 
-    //Subclasse que extende a ViewHolder para instanciar os componentes da View
+    //Subclasse que extende a ViewHolder para instanciar os componentes da View ====================
     public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView category, description, date, valueBrl;
         private MaterialCardView parent;
@@ -45,7 +45,8 @@ public class DespesaRecViewAdapter extends RecyclerView.Adapter<DespesaRecViewAd
         this.context = context;
     }
 
-    //Métodos implementados do Adapter
+
+    //Métodos implementados do Adapter =============================================================
     // Instancia um ViewHolder da classe acima, criando uma view com o LayoutInflater e passando-a para o construtor
     @NonNull
     @Override
@@ -66,19 +67,19 @@ public class DespesaRecViewAdapter extends RecyclerView.Adapter<DespesaRecViewAd
         holder.valueBrl.setText(formatvalue);
 
         holder.dialog = new MaterialAlertDialogBuilder(context)
-            .setTitle("Remover card?")
-            .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    despesas.remove(holder.getAdapterPosition());
-                    updateDataSet(despesas);
-                }
-            })
-            .setNegativeButton("Não", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
+                .setTitle("Remover card?")
+                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        despesas.remove(holder.getAdapterPosition());
+                        updateDataSet(despesas);
+                    }
+                })
+                .setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
             });
 
         AlertDialog dialog = holder.dialog.create();
