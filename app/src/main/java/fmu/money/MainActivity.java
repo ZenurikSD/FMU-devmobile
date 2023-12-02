@@ -26,6 +26,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FloatingActionButton fabAdd, fabInfo, fabReceitas;
     private TextView txtSaldo;
     private Intent intent;
+    private static final String[] CATEGORIAS = {
+            "Alimentação",
+            "Assinatura",
+            "Beleza",
+            "Educação",
+            "Emergência",
+            "Investimento",
+            "Lazer",
+            "Moradia",
+            "Outro",
+            "Saúde",
+            "Transporte"
+    };
 
     //OnClickListeners vão aqui
     @Override
@@ -40,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // Versão teste, substitua pela implementação do banco
             // Adiciona uma despesa ao storage, atualiza o Adapter com a lista nova, decrementa o saldo total
 
-            Despesa despesa = new Despesa("Lazer", 2500,"Viagem à Recife", Calendar.getInstance(), 1);
+            Despesa despesa = new Despesa(CATEGORIAS[6], 2500,"Viagem à Recife", Calendar.getInstance(), 1);
             despesaDAO.addDespesa(despesa);
             despesaAdapter.updateDataSet(despesaDAO.listDespesas());
 
