@@ -2,7 +2,7 @@ package fmu.money.db.interfaces;
 
 import java.util.ArrayList;
 
-import fmu.money.Receita;
+import fmu.money.db.modelos.Receita;
 
 public interface ReceitaDAOInterface {
 

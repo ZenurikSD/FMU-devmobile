@@ -14,6 +14,8 @@ import java.util.ArrayList;
 
 import fmu.money.db.ReceitaFakeDAO;
 import fmu.money.db.UserFakeDAO;
+import fmu.money.db.modelos.Receita;
+import fmu.money.db.modelos.User;
 
 public class ReceitaListActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -46,7 +48,6 @@ public class ReceitaListActivity extends AppCompatActivity implements View.OnCli
 
         receitaDAO = new ReceitaFakeDAO();
         userDAO = new UserFakeDAO();
-        user = new User();
 
         receitaAdapter = new ReceitaViewAdapter(this);
         receitaAdapter.updateDataSet(receitaDAO.listReceitas());

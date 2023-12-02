@@ -2,12 +2,10 @@ package fmu.money.db;
 
 import java.util.ArrayList;
 
-import fmu.money.Receita;
 import fmu.money.db.interfaces.ReceitaDAOInterface;
+import fmu.money.db.modelos.Receita;
 
-/** Implementação de teste, substitua pela conexão ao banco
- * Utiliza um singleton de armazenamento temporário para simular as interações com o banco
- */
+/** Classe DAO falsa que usa armazenamento temporário. Substitua pela implementação do banco  */
 public class ReceitaFakeDAO implements ReceitaDAOInterface{
     private TempStorage storage = TempStorage.getInstancia();
 

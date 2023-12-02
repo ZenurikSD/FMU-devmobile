@@ -16,6 +16,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 
+import fmu.money.db.modelos.Despesa;
 import fmu.money.utils.CalendarUtils;
 
 // Adapter disponibiliza as Views que contém os itens do dataset

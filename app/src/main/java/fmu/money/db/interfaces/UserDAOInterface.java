@@ -1,22 +1,24 @@
 package fmu.money.db.interfaces;
 
-import fmu.money.User;
-
 public interface UserDAOInterface {
-    /** Adiciona o usuário ao banco, faça apenas uma vez.
-     * @param user
+    /** Cria um usuário no banco.
+     * Só é possível ter UM usuário. Implemente a lógica para criar se não existir ou retornar o existente.
+     * @param nome
+     * @param saldo
      * @return TRUE se sucesso
      */
-    boolean createUser(User user);
+    boolean createUser(String nome, double saldo);
 
-    /** Retorna o usuário existente no banco
-     * @return
+    /** Retorna o nome do usuário existente no banco
      */
-    User getUser();
+    String getUserName();
 
-    /** Atualiza o saldo do usuário no banco
+    /** Retorna o saldo do usuário existente no banco
+     */
+    double getUserSaldo();
+
+    /** Atualiza o saldo do usuário existente no banco
      * @param valor
-     * @return TRUE se sucesso
      */
-    boolean updateUserSaldo(double valor);
+    void updateUserSaldo(double valor);
 }

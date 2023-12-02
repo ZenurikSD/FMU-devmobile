@@ -14,20 +14,19 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.Calendar;
 
 import fmu.money.db.DespesaFakeDAO;
+import fmu.money.db.modelos.*;
 import fmu.money.db.ReceitaFakeDAO;
 import fmu.money.db.UserFakeDAO;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private FloatingActionButton fabAdd, fabInfo, fabReceitas;
-    private TextView txtSaldo;
     private RecyclerView cardsRecView;
     private DespesaRecViewAdapter despesaAdapter;
-    private DespesaFakeDAO despesaDAO;
     private ReceitaFakeDAO receitaDAO;
+    private DespesaFakeDAO despesaDAO;
     private UserFakeDAO userDAO;
-    private User user;
-
+    private FloatingActionButton fabAdd, fabInfo, fabReceitas;
+    private TextView txtSaldo;
     private Intent intent;
 
     //OnClickListeners vão aqui
@@ -40,11 +39,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             AddDialogFragment addModal = new AddDialogFragment();
             addModal.show(getSupportFragmentManager(), "add");
 
-            //Teste de cards
-            despesaDAO.addDespesa(new Despesa("Lazer", 2500,"Viagem à Recife", Calendar.getInstance(), 1));
-            despesaDAO.addDespesa(new Despesa("Alimentação", 125.99,"Mercado Assaí", Calendar.getInstance(), 1));
-            despesaDAO.addDespesa(new Despesa("Saúde", 450,"Oftalmologista", Calendar.getInstance(), 1));
+            //Teste de atualização de card e saldo
+            Despesa despesa = new Despesa("Lazer", 2500,"Viagem à Recife", Calendar.getInstance(), 1);
+            despesaDAO.addDespesa(despesa);
             despesaAdapter.updateDataSet(despesaDAO.listDespesas());
+
+            //Incrementa o saldo ao final da operação
+            userDAO.updateUserSaldo(despesa.getValor());
+            String novoSaldo = "R$ " + userDAO.getUserSaldo();
+            txtSaldo.setText(novoSaldo);
 
         } else if (viewId == R.id.fabInfo){
             intent = new Intent(this, InfoActivity.class);
@@ -54,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             intent = new Intent(this, ReceitaListActivity.class);
             startActivity(intent);
         }
+
     }
 
     @Override
@@ -61,20 +65,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        txtSaldo = findViewById(R.id.txtSaldo);
+        //DAOs =====================================================================================
+        despesaDAO = new DespesaFakeDAO();
+        receitaDAO = new ReceitaFakeDAO();
 
-        /* Cards
+        userDAO = new UserFakeDAO();
+        userDAO.createUser("Zenurik", 0);
+
+
+        //Atualiza o saldo do usuário
+        txtSaldo = findViewById(R.id.txtSaldo);
+        txtSaldo.setText("R$ " + userDAO.getUserSaldo());
+
+
+        /* Cards ===================================================================================
          * Adiciona uma lista mock de itens ao "banco"
          * Instancia o adapter
          * Retorna a lista para o adapter e define ele na RecyclerView dessa atividade
          * Define um gerenciador de layout linear para a RecyclerView usar
          * Temporário, tem que mover pra implementação no banco
          */
-        despesaDAO = new DespesaFakeDAO();
-        receitaDAO = new ReceitaFakeDAO();
-        userDAO = new UserFakeDAO();
-        user = new User();
-
         despesaAdapter = new DespesaRecViewAdapter(this);
         despesaAdapter.updateDataSet(despesaDAO.listDespesas());
 

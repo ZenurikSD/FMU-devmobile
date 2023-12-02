@@ -2,12 +2,10 @@ package fmu.money.db;
 
 import java.util.ArrayList;
 
-import fmu.money.Despesa;
 import fmu.money.db.interfaces.DespesaDAOInterface;
+import fmu.money.db.modelos.Despesa;
 
-/** Implementação de teste, substitua pela conexão ao banco
- * Utiliza um singleton de armazenamento temporário para simular as interações com o banco
- */
+/** Classe DAO falsa que usa armazenamento temporário. Substitua pela implementação do banco  */
 public class DespesaFakeDAO implements DespesaDAOInterface{
     private TempStorage storage = TempStorage.getInstancia();
 
