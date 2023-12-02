@@ -1,18 +1,17 @@
 package fmu.money;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.RelativeLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import fmu.money.db.DespesaFakeDAO;
@@ -20,8 +19,8 @@ import fmu.money.db.DespesaFakeDAO;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private FloatingActionButton fab;
-    private RelativeLayout parent;
+    private FloatingActionButton fabAdd, fabInfo, fabReceitas;
+    private ConstraintLayout parent;
     private Snackbar snackbar;
     private RecyclerView cardsRecView;
     private DespesaRecViewAdapter despesaAdapter;
@@ -32,9 +31,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view){
         int viewId = view.getId();
 
-        if (viewId == R.id.fab){
-            despesaDAO.addDespesa(new Despesa("Emergência", 4500, "Conserto do carro", Calendar.getInstance(), 1));
-            despesaAdapter.setDespesas(despesaDAO.listDespesas());
+        if (viewId == R.id.fabAdd){
+            AddDialogFragment addModal = new AddDialogFragment();
+            addModal.show(getSupportFragmentManager(), "add");
+
+        } else if (viewId == R.id.fabInfo){
+            Intent in = new Intent(this, InfoActivity.class);
+            startActivity(in);
         }
     }
 
@@ -56,25 +59,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         despesaDAO.addDespesa(new Despesa("Moradia", 780, "Aluguel", Calendar.getInstance(), 1));
         despesaDAO.addDespesa(new Despesa("Lazer", 1250, "Viagem à Buenos Aires", Calendar.getInstance(), 1));
 
-       // cardsRecView = findViewById(R.id.cardsRecView);
+        cardsRecView = findViewById(R.id.cardsRecViewLayout);
         despesaAdapter = new DespesaRecViewAdapter(this);
         despesaAdapter.setDespesas(despesaDAO.listDespesas());
 
+        cardsRecView = findViewById(R.id.cardsRecViewLayout);
         cardsRecView.setAdapter(despesaAdapter);
         cardsRecView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true));
 
         // FAB
-        //parent = findViewById(R.id.parent);
-        //fab = findViewById(R.id.fab);
-        fab.setOnClickListener(this);
-    }
+        fabAdd = findViewById(R.id.fabAdd);
+        fabAdd.setOnClickListener(this);
 
-    public void onInfo(View view){
-        Intent in = new Intent(MainActivity.this, Info.class);
-        startActivity(in);
-    }
-    public void abrirModal(View view){
-        AddDialogFragment add = new AddDialogFragment();
-        add.show(getSupportFragmentManager(), "add");
+        fabInfo = findViewById(R.id.fabInfo);
+        fabInfo.setOnClickListener(this);
     }
 }

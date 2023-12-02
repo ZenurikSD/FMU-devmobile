@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cinza_escuro"
@@ -10,7 +10,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cabecalho"
-        android:layout_width="450dp"
+        android:layout_width="match_parent"
         android:layout_height="157dp"
         app:cardBackgroundColor="@color/cinza_claro"
         app:cardElevation="5dp"
@@ -29,41 +29,43 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
+                android:layout_alignParentStart="true"
                 android:layout_marginTop="10dp"
                 android:text="App Pay"
+                android:textColor="@color/black"
                 android:textSize="24sp"
-                android:textStyle="bold|italic"
-                android:textColor="@color/black"/>
+                android:textStyle="bold|italic" />
 
             <TextView
                 android:id="@+id/saldo"
-                android:layout_width="152dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="140dp"
-                android:layout_marginTop="85dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="R$ 1.580,00"
-                android:textAlignment="center"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/title"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/black"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/saldo_txt"
-                android:layout_width="152dp"
-                android:layout_height="29dp"
-                android:layout_marginLeft="140dp"
-                android:layout_marginTop="110dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/saldo"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
                 android:text="SALDO"
                 android:textAlignment="center"
+                android:textColor="@color/black"
                 android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"/>
+                android:textStyle="bold" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/footer"
-        android:layout_width="450dp"
+        android:layout_width="match_parent"
         android:layout_height="100dp"
         app:cardBackgroundColor="@color/cinza_claro"
         app:cardElevation="30dp"
@@ -71,37 +73,51 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/cardViewRelLayout2"
-            android:layout_width="430dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:padding="5dp">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/add"
-                android:layout_width="match_parent"
+                android:id="@+id/fabInfo"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="150dp"
-                android:layout_marginEnd="92dp"
-                android:layout_marginBottom="19dp"
-                android:onClick="abrirModal"
+                android:layout_marginHorizontal="20dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_info"
+                app:backgroundTint="@color/white" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="20dp"
                 android:src="@drawable/add"
                 app:backgroundTint="@color/white" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="109dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginBottom="15dp"
-                android:onClick="onInfo"
-                android:src="@drawable/info"
-                app:backgroundTint="@color/white" />
-        </RelativeLayout>
+                android:id="@+id/receitas"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="20dp"
+                android:src="@drawable/ic_money"
+                android:backgroundTint="@color/white"/>
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cardsRecViewLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/footer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cabecalho"
+        app:layout_constraintVertical_bias="0.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

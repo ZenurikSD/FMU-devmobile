@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/info"
-    tools:context=".Info"
+    android:id="@+id/fabInfo"
+    tools:context=".InfoActivity"
     android:background="@color/cinza_claro">
 
     <com.google.android.material.card.MaterialCardView
@@ -63,7 +63,7 @@
         android:layout_marginBottom="55dp"
         android:backgroundTint="@color/white"
         android:onClick="onHome"
-        android:src="@drawable/returnt"
+        android:src="@drawable/ic_return"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
