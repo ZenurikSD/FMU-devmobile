@@ -16,7 +16,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 
-import fmu.money.db.ReceitaFakeDAO;
 import fmu.money.db.UserFakeDAO;
 import fmu.money.db.modelos.Receita;
 import fmu.money.utils.CalendarUtils;

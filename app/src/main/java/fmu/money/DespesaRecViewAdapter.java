@@ -21,8 +21,9 @@ import fmu.money.utils.CalendarUtils;
 
 // Adapter disponibiliza as Views que contém os itens do dataset
 public class DespesaRecViewAdapter extends RecyclerView.Adapter<DespesaRecViewAdapter.ViewHolder>{
-    ArrayList<Despesa> despesas = new ArrayList<>();
+    private ArrayList<Despesa> despesas = new ArrayList<>();
     private Context context;
+    private OnDialogPositiveCallback onDialogPositiveCallback;
 
     //Subclasse que extende a ViewHolder para instanciar os componentes da View ====================
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -40,9 +41,16 @@ public class DespesaRecViewAdapter extends RecyclerView.Adapter<DespesaRecViewAd
         }
     }
 
+
     //Construtor, passa o contexto da activity onde está a RecyclerView para poder user onClick Listeners
     public DespesaRecViewAdapter(Context context) {
         this.context = context;
+
+        try {
+            this.onDialogPositiveCallback = (OnDialogPositiveCallback) context;
+        } catch (ClassCastException cce){
+            throw new ClassCastException("Calling Context must implement OnDialogPositiveCallback");
+        }
     }
 
 
@@ -71,8 +79,11 @@ public class DespesaRecViewAdapter extends RecyclerView.Adapter<DespesaRecViewAd
                 .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        despesas.remove(holder.getAdapterPosition());
-                        updateDataSet(despesas);
+                        int i = holder.getAdapterPosition();
+
+                        onDialogPositiveCallback.onDialogPositiveListener(i);
+                        // despesas.remove(holder.getAdapterPosition());
+                        // updateDataSet(despesas);
                     }
                 })
                 .setNegativeButton("Não", new DialogInterface.OnClickListener() {

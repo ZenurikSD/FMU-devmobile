@@ -8,9 +8,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import fmu.money.db.modelos.Despesa;
@@ -18,7 +20,7 @@ import fmu.money.db.DespesaFakeDAO;
 import fmu.money.db.UserFakeDAO;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnDialogPositiveCallback {
     private RecyclerView cardsRecView;
     private DespesaRecViewAdapter despesaAdapter;
     private DespesaFakeDAO despesaDAO;
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // Versão teste, substitua pela implementação do banco
             // Adiciona uma despesa ao storage, atualiza o Adapter com a lista nova, decrementa o saldo total
 
-            Despesa despesa = new Despesa(CATEGORIAS[6], 2500,"Viagem à Recife", Calendar.getInstance(), 1);
+            Despesa despesa = new Despesa(CATEGORIAS[6], 2500,"Viagem à Buenos Aires", Calendar.getInstance(), 1);
             despesaDAO.addDespesa(despesa);
             despesaAdapter.updateDataSet(despesaDAO.listDespesas());
 
@@ -121,6 +123,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
         txtSaldo.setText("R$ " + userDAO.getUserSaldo());
 
+        despesaAdapter.updateDataSet(despesaDAO.listDespesas());
+    }
+
+    // Implementação do método da interface OnDialogPositiveCallback que é chamado dentro do Adapter
+    // Usado para alterar dados nessa Activity quando um evento ocorre no Adapter
+    @Override
+    public void onDialogPositiveListener(int indice) {
+        Despesa d = despesaDAO.getDespesa(indice);
+
+        userDAO.updateUserSaldo(d.getValor());
+        txtSaldo.setText("R$ " + userDAO.getUserSaldo());
+
+        despesaDAO.removeDespesa(indice);
         despesaAdapter.updateDataSet(despesaDAO.listDespesas());
     }
 }
