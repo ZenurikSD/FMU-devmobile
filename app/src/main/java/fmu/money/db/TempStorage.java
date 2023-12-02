@@ -4,50 +4,40 @@ import java.util.ArrayList;
 
 import fmu.money.Receita;
 import fmu.money.Despesa;
+import fmu.money.User;
 
-/** Classe Singleton que define um único usuário para todo o app.
+/** Classe Singleton que armazena um usuário com nome e saldo e suas listas de despesas e receitas
  * <code>receitaList</code> e <code>despesaList</code> são temporários, substitua pela implementação do banco mais tarde
  */
-public class UserTempStorage{
-    private String nome;
-    private double saldo;
+public class TempStorage {
+    private User user;
     private ArrayList<Receita> receitaList;
     private ArrayList<Despesa> despesaList;
-    private static UserTempStorage instancia;
+    private static TempStorage instancia;
 
     /** Retorna a instância do usuário, definido 0 como saldo
      * @return Instância única e global do usuário
      */
-    public static synchronized UserTempStorage getInstancia(){
+    public static synchronized TempStorage getInstancia(){
         if (instancia == null){
-            instancia = new UserTempStorage();
+            instancia = new TempStorage();
         }
 
         return instancia;
     }
 
-    private UserTempStorage(){
-        this.nome = "Zenurik";
-        this.saldo = 0;
+    private TempStorage(){
+        this.user = new User();
         this.receitaList = new ArrayList<>();
         this.despesaList = new ArrayList<>();
     }
 
-    public String getNome() {
-        return nome;
-    }
-    public void setNome(String nome) {
-        this.nome = nome;
+    public User getSavedUser() {
+        return user;
     }
 
-    public double getSaldo() {
-        return saldo;
-    }
-    /** Atualiza o saldo do usuário com um certo valor
-     * @param incremento
-     */
-    public void updateSaldo(double incremento){
-        this.saldo += incremento;
+    public void setSavedUser(User user) {
+        this.user = user;
     }
 
     public ArrayList<Receita> getReceitaList() {

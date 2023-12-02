@@ -70,7 +70,7 @@ public class DespesaRecViewAdapter extends RecyclerView.Adapter<DespesaRecViewAd
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     despesas.remove(holder.getAdapterPosition());
-                    setDespesas(despesas);
+                    updateDataSet(despesas);
                 }
             })
             .setNegativeButton("Não", new DialogInterface.OnClickListener() {
@@ -95,7 +95,7 @@ public class DespesaRecViewAdapter extends RecyclerView.Adapter<DespesaRecViewAd
         return despesas.size();
     }
 
-    public void setDespesas(ArrayList<Despesa> despesas){
+    public void updateDataSet(ArrayList<Despesa> despesas){
         this.despesas = despesas;
         notifyDataSetChanged();
     }

@@ -9,21 +9,21 @@ import fmu.money.db.interfaces.DespesaDAOInterface;
  * Utiliza um singleton de armazenamento temporário para simular as interações com o banco
  */
 public class DespesaFakeDAO implements DespesaDAOInterface{
-    private UserTempStorage user = UserTempStorage.getInstancia();
+    private TempStorage storage = TempStorage.getInstancia();
 
     @Override
     public ArrayList<Despesa> listDespesas() {
-        return user.getDespesaList();
+        return storage.getDespesaList();
     }
 
     @Override
     public Despesa getDespesa(int id) {
-        return user.getDespesaList().get(id);
+        return storage.getDespesaList().get(id);
     }
 
     @Override
     public boolean addDespesa(Despesa despesa) {
-        return user.getDespesaList().add(despesa);
+        return storage.getDespesaList().add(despesa);
     }
 
     /** Não faz nada por enquanto. Não use. */
@@ -34,7 +34,7 @@ public class DespesaFakeDAO implements DespesaDAOInterface{
 
     @Override
     public boolean removeDespesa(int id) {
-        Despesa temp = user.getDespesaList().get(id);
-        return user.getDespesaList().remove(temp);
+        Despesa temp = storage.getDespesaList().get(id);
+        return storage.getDespesaList().remove(temp);
     }
 }
