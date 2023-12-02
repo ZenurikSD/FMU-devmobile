@@ -1,6 +1,7 @@
 package fmu.money;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,11 +23,7 @@ import fmu.money.db.UserFakeDAO;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private Button btnReceitaList;
-    private FloatingActionButton fab;
-    private RelativeLayout parent;
-    private Snackbar snackbar;
+    private FloatingActionButton fabAdd, fabInfo, fabReceitas;
     private TextView txtSaldo;
     private RecyclerView cardsRecView;
     private DespesaRecViewAdapter despesaAdapter;
@@ -42,22 +39,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view){
         int viewId = view.getId();
 
-        if (viewId == R.id.fab){
-            //TODO: Dialog com opção de escolher entre receita ou despesa
-            //Por enquanto adiciona de uma vez para testes
-            despesaDAO.addDespesa(new Despesa("Alimentação", 250, "Mercado Carrefour", Calendar.getInstance(), 1));
-            despesaDAO.addDespesa(new Despesa("Moradia", 780, "Aluguel", Calendar.getInstance(), 1));
-            despesaDAO.addDespesa(new Despesa("Lazer", 1250, "Viagem à Buenos Aires", Calendar.getInstance(), 1));
+        if (viewId == R.id.fabAdd){
+            AddDialogFragment addModal = new AddDialogFragment();
+            addModal.show(getSupportFragmentManager(), "add");
 
-            receitaDAO.addReceita(new Receita(2500.00));
-
-            despesaAdapter.updateDataSet(despesaDAO.listDespesas());
-
-            updateUiSaldo();
-
-        } else if (viewId == R.id.btnReceitaList){
-            intent = new Intent(this, ReceitaListActivity.class);
-            startActivity(intent);
+        } else if (viewId == R.id.fabInfo){
+            Intent in = new Intent(this, InfoActivity.class);
+            startActivity(in);
         }
     }
 
@@ -83,21 +71,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         despesaAdapter = new DespesaRecViewAdapter(this);
         despesaAdapter.updateDataSet(despesaDAO.listDespesas());
 
-        cardsRecView = findViewById(R.id.cardsRecView);
+        cardsRecView = findViewById(R.id.cardsRecViewLayout);
+        despesaAdapter = new DespesaRecViewAdapter(this);
+        despesaAdapter.updateDataSet(despesaDAO.listDespesas());
+
+        cardsRecView = findViewById(R.id.cardsRecViewLayout);
         cardsRecView.setAdapter(despesaAdapter);
         cardsRecView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true));
 
         // FAB
-        fab = findViewById(R.id.fab);
-        fab.setOnClickListener(this);
+        fabAdd = findViewById(R.id.fabAdd);
+        fabAdd.setOnClickListener(this);
 
-        //ReceitaActivity
-        btnReceitaList = findViewById(R.id.btnReceitaList);
-        btnReceitaList.setOnClickListener(this);
-
-    }
-
-    private void updateUiSaldo(){
-        //TODO Atualizar o componente de saldo com a soma de despesas e receitas
+        fabInfo = findViewById(R.id.fabInfo);
+        fabInfo.setOnClickListener(this);
     }
 }

@@ -16,6 +16,9 @@
             android:name=".ReceitaListActivity"
             android:exported="false" />
         <activity
+            android:name=".InfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
