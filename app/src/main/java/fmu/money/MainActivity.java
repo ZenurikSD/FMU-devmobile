@@ -10,10 +10,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Calendar;
 
@@ -42,6 +44,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (viewId == R.id.fabAdd){
             AddDialogFragment addModal = new AddDialogFragment();
             addModal.show(getSupportFragmentManager(), "add");
+
+            EditText valorModal = findViewById(R.id.valorModal);
+
+            txtValorDespesas = findViewById(R.id.txtValorDespesas);
+
+
+            // Versão teste, substitua pela implementação do banco
+            // Adiciona uma despesa ao storage, atualiza o Adapter com a lista nova, decrementa o saldo total
+
+            Despesa despesa = new Despesa(CATEGORIAS[6], 2500,"Viagem à Buenos Aires", Calendar.getInstance(), 1);
+            despesaDAO.addDespesa(despesa);
+            despesaAdapter.updateDataSet(despesaDAO.listDespesas());
+
+            //Decrementa o saldo
+            userDAO.updateUserSaldo( - despesa.getValor());
+            String nvSaldo = "R$ " + userDAO.getUserSaldo();
+            txtValorSaldo.setText(nvSaldo);
+
+            //Atualiza total de despesas e receitas
+            txtValorDespesas.setText("R$ " + despesaDAO.getTotal());
+            txtValorReceitas.setText("R$ " + receitaDAO.getTotal());
 
         } else if (viewId == R.id.fabInfo){
             Intent in = new Intent(this, InfoActivity.class);
