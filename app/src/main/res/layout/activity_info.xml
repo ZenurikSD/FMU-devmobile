@@ -30,7 +30,7 @@
             android:text="INFORMAÇÕES DO APP:"
             android:textColor="@color/white"
             android:textSize="24dp"
-            android:textStyle="bold"></TextView>
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/conteudo_info"
@@ -40,7 +40,7 @@
             android:layout_marginTop="70dp"
             android:text="Projeto ministrado pelo curso de análise e desenvolvimento de sistemas - FMU 23.2 com objetivo principal de desenvolver habilidades mobile num app de gestão financeira, onde seu objetivo principal é gerenciar as contas do usuário de forma que se use cada vez menos o papel e caneta, tendo contrrole de seus gastos em suas mãos através de um 'click'."
             android:textColor="@color/white"
-            android:textSize="16dp"></TextView>
+            android:textSize="16dp"/>
 
         <TextView
             android:id="@+id/alunos_info"
@@ -53,20 +53,19 @@
     Alisson fernandes da Silva - RA: 1826277
     Gilberto Balogh Neto - RA: 1872948"
             android:textColor="@color/white"
-            android:textSize="16dp"></TextView>
+            android:textSize="16dp"/>
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_voltar"
+        android:id="@+id/fabReturnMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="55dp"
         android:backgroundTint="@color/white"
-        android:onClick="onHome"
         android:src="@drawable/ic_return"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"></com.google.android.material.floatingactionbutton.FloatingActionButton>
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
