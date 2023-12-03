@@ -1,6 +1,8 @@
 package fmu.money;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +48,34 @@ public class ReceitaViewAdapter extends RecyclerView.Adapter<ReceitaViewAdapter.
 
         String valorString = String.valueOf(receitas.get(position).getValor());
         holder.recValorBrl.setText(valorString);
-    }
+
+        // Diálogo de remoção
+        holder.dialog = new MaterialAlertDialogBuilder(context)
+                .setTitle("Remover receita?")
+                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Decrementa o saldo e remove a receita
+                        int i = holder.getAdapterPosition();
+
+                        onDialogPositiveCallback.onDialogPositiveListener(i);
+                    }
+                })
+                .setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+            }).setBackground(new ColorDrawable(Color.parseColor("#d3d3d3")));;
+
+        AlertDialog cardDialog = holder.dialog.create();
+        holder.parent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cardDialog.show();
+            }
+        });
+    };
 
     @Override
     public int getItemCount() {

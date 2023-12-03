@@ -11,14 +11,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-public class AddDialogFragment extends AppCompatDialogFragment {
+public class AddReceitaDialogFragment extends AppCompatDialogFragment  {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.modal_despesa, null);
-        Button btnVoltar = view.findViewById(R.id.btnVoltarModal);
+        View view = inflater.inflate(R.layout.modal_receita , null);
+        Button btnVoltar = view.findViewById(R.id.btnVoltarModalReceita);
         btnVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -28,5 +28,4 @@ public class AddDialogFragment extends AppCompatDialogFragment {
         builder.setView(view);
         return builder.create();
     }
-
 }
