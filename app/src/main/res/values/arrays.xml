@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="categorias">
-        <item>@string/Lazer</item>
-        <item>@string/Fatura</item>
-        <item>@string/Parcelamento</item>
-        <item>@string/Saldo</item>
+        <item>@string/categAlimentação</item>
+        <item>@string/categAssinatura</item>
+        <item>@string/categBeleza</item>
+        <item>@string/categEducação</item>
+        <item>@string/categEmergência</item>
+        <item>@string/categInvestimento</item>
+        <item>@string/categLazer</item>
+        <item>@string/categMoradia</item>
+        <item>@string/categOutro</item>
+        <item>@string/categSaúde</item>
+        <item>@string/categTransporte</item>
     </string-array>
 </resources>

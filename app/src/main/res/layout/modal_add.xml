@@ -43,11 +43,12 @@
         android:layout_marginRight="30dp"
         android:hint="Ex: Parcela Celular"
         android:id="@+id/inputDespesaDescr"/>
+
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="30dp"
-        android:entries="@array/categorias"/>
+        android:id="@+id/spinnerDespesaCateg"/>
 </LinearLayout>

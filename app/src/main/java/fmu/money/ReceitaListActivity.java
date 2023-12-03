@@ -15,7 +15,7 @@ import fmu.money.db.modelos.Receita;
 import fmu.money.db.ReceitaFakeDAO;
 import fmu.money.db.UserFakeDAO;
 
-public class ReceitaListActivity extends AppCompatActivity implements View.OnClickListener, OnDialogPositiveCallback {
+public class ReceitaListActivity extends AppCompatActivity implements View.OnClickListener, RemoveDialogListener {
     private TextView txtSomaReceitas;
     private FloatingActionButton fabReturnMain, fabAddReceita;
     private RecyclerView cardsRecView;
@@ -92,7 +92,7 @@ public class ReceitaListActivity extends AppCompatActivity implements View.OnCli
     }
 
     @Override
-    public void onDialogPositiveListener(int indice) {
+    public void onDialogPositiveClick(int indice) {
         Receita r = receitaDAO.getReceita(indice);
 
         userDAO.updateUserSaldo( - r.getValor());

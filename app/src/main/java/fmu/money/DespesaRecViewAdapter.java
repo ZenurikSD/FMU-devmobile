@@ -23,7 +23,7 @@ import fmu.money.utils.CalendarUtils;
 public class DespesaRecViewAdapter extends RecyclerView.Adapter<DespesaRecViewAdapter.ViewHolder>{
     private ArrayList<Despesa> despesas = new ArrayList<>();
     private Context context;
-    private OnDialogPositiveCallback onDialogPositiveCallback;
+    private RemoveDialogListener onDialogPositiveCallback;
 
     //Subclasse que extende a ViewHolder para instanciar os componentes da View ====================
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -47,7 +47,7 @@ public class DespesaRecViewAdapter extends RecyclerView.Adapter<DespesaRecViewAd
         this.context = context;
 
         try {
-            this.onDialogPositiveCallback = (OnDialogPositiveCallback) context;
+            this.onDialogPositiveCallback = (RemoveDialogListener) context;
         } catch (ClassCastException cce){
             throw new ClassCastException("Calling Context must implement OnDialogPositiveCallback");
         }
@@ -81,7 +81,7 @@ public class DespesaRecViewAdapter extends RecyclerView.Adapter<DespesaRecViewAd
                     public void onClick(DialogInterface dialog, int which) {
                         int i = holder.getAdapterPosition();
 
-                        onDialogPositiveCallback.onDialogPositiveListener(i);
+                        onDialogPositiveCallback.onDialogPositiveClick(i);
                     }
                 })
                 .setNegativeButton("Não", new DialogInterface.OnClickListener() {
