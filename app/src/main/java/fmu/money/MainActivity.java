@@ -141,9 +141,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Despesa d = despesaDAO.getDespesa(indice);
 
         userDAO.updateUserSaldo(d.getValor());
+        despesaDAO.removeDespesa(indice);
+
+        txtValorDespesas.setText("R$ " + despesaDAO.getTotal());
         txtValorSaldo.setText("R$ " + userDAO.getUserSaldo());
 
-        despesaDAO.removeDespesa(indice);
         despesaAdapter.updateDataSet(despesaDAO.listDespesas());
     }
 }
