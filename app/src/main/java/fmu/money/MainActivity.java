@@ -8,13 +8,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
+import fmu.money.db.ReceitaFakeDAO;
 import fmu.money.db.modelos.Despesa;
 import fmu.money.db.DespesaFakeDAO;
 import fmu.money.db.UserFakeDAO;
@@ -23,10 +22,11 @@ import fmu.money.db.UserFakeDAO;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnDialogPositiveCallback {
     private RecyclerView cardsRecView;
     private DespesaRecViewAdapter despesaAdapter;
+    private ReceitaFakeDAO receitaDAO;
     private DespesaFakeDAO despesaDAO;
     private UserFakeDAO userDAO;
     private FloatingActionButton fabAdd, fabInfo, fabReceitas;
-    private TextView txtSaldo;
+    private TextView txtValorSaldo, txtValorDespesas, txtValorReceitas;
     private Intent intent;
     private static final String[] CATEGORIAS = {
             "Alimentação",
@@ -59,10 +59,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             despesaDAO.addDespesa(despesa);
             despesaAdapter.updateDataSet(despesaDAO.listDespesas());
 
-            //Decrementa o saldo ao final da operação
+            //Decrementa o saldo
             userDAO.updateUserSaldo( - despesa.getValor());
             String nvSaldo = "R$ " + userDAO.getUserSaldo();
-            txtSaldo.setText(nvSaldo);
+            txtValorSaldo.setText(nvSaldo);
+
+            //Atualiza total de despesas e receitas
+            txtValorDespesas.setText("R$ " + despesaDAO.getTotal());
+            txtValorReceitas.setText("R$ " + receitaDAO.getTotal());
 
         } else if (viewId == R.id.fabInfo){
             intent = new Intent(this, InfoActivity.class);
@@ -83,12 +87,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //DAOs =====================================================================================
         despesaDAO = new DespesaFakeDAO();
+        receitaDAO = new ReceitaFakeDAO();
         userDAO = new UserFakeDAO();
         userDAO.createUser("Zenurik", 0);
 
         //Componentes simples ======================================================================
-        txtSaldo = findViewById(R.id.txtSaldo);
-
+        txtValorDespesas = findViewById(R.id.txtValorDespesas);
+        txtValorSaldo = findViewById(R.id.txtValorSaldo);
+        txtValorReceitas = findViewById(R.id.txtValorReceitas);
 
 
         /* Cards RecyclerView ======================================================================
@@ -121,7 +127,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
-        txtSaldo.setText("R$ " + userDAO.getUserSaldo());
+        txtValorDespesas.setText("R$ " + despesaDAO.getTotal());
+        txtValorSaldo.setText("R$ " + userDAO.getUserSaldo());
+        txtValorReceitas.setText("R$ " + receitaDAO.getTotal());
 
         despesaAdapter.updateDataSet(despesaDAO.listDespesas());
     }
@@ -133,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Despesa d = despesaDAO.getDespesa(indice);
 
         userDAO.updateUserSaldo(d.getValor());
-        txtSaldo.setText("R$ " + userDAO.getUserSaldo());
+        txtValorSaldo.setText("R$ " + userDAO.getUserSaldo());
 
         despesaDAO.removeDespesa(indice);
         despesaAdapter.updateDataSet(despesaDAO.listDespesas());

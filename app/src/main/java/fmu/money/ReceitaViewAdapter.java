@@ -24,6 +24,7 @@ public class ReceitaViewAdapter extends RecyclerView.Adapter<ReceitaViewAdapter.
     private UserFakeDAO userDAO= new UserFakeDAO();
     private ArrayList<Receita> receitas;
     private Context context;
+    private OnDialogPositiveCallback onDialogPositiveCallback;
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView recNome, recData, recValorBrl;
@@ -41,6 +42,12 @@ public class ReceitaViewAdapter extends RecyclerView.Adapter<ReceitaViewAdapter.
 
     public ReceitaViewAdapter(Context context){
         this.context = context;
+
+        try {
+            this.onDialogPositiveCallback = (OnDialogPositiveCallback) context;
+        } catch (ClassCastException cce){
+            throw new ClassCastException("Calling Context must implement OnDialogPositiveCallback");
+        }
     }
 
     @NonNull
@@ -55,7 +62,7 @@ public class ReceitaViewAdapter extends RecyclerView.Adapter<ReceitaViewAdapter.
         String dataString = CalendarUtils.getDataString(receitas.get(position).getData());
         holder.recData.setText(dataString);
 
-        String valorString = String.valueOf(receitas.get(position).getValor());
+        String valorString = "R$ " + receitas.get(position).getValor();
         holder.recValorBrl.setText(valorString);
 
         // Diálogo de remoção
@@ -67,10 +74,7 @@ public class ReceitaViewAdapter extends RecyclerView.Adapter<ReceitaViewAdapter.
                         //Decrementa o saldo e remove a receita
                         int i = holder.getAdapterPosition();
 
-                        userDAO.updateUserSaldo( - receitas.get(i).getValor());
-
-                        receitas.remove(i);
-                        updateDataSet(receitas);
+                        onDialogPositiveCallback.onDialogPositiveListener(i);
                     }
                 })
                 .setNegativeButton("Não", new DialogInterface.OnClickListener() {

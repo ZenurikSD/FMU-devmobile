@@ -15,7 +15,7 @@ import fmu.money.db.modelos.Receita;
 import fmu.money.db.ReceitaFakeDAO;
 import fmu.money.db.UserFakeDAO;
 
-public class ReceitaListActivity extends AppCompatActivity implements View.OnClickListener {
+public class ReceitaListActivity extends AppCompatActivity implements View.OnClickListener, OnDialogPositiveCallback {
     private TextView txtSomaReceitas;
     private FloatingActionButton fabReturnMain, fabAddReceita;
     private RecyclerView cardsRecView;
@@ -89,5 +89,16 @@ public class ReceitaListActivity extends AppCompatActivity implements View.OnCli
         txtSomaReceitas.setText(nvvalor);
 
         receitaAdapter.updateDataSet(receitaDAO.listReceitas());
+    }
+
+    @Override
+    public void onDialogPositiveListener(int indice) {
+        Receita r = receitaDAO.getReceita(indice);
+
+        userDAO.updateUserSaldo( - r.getValor());
+        receitaDAO.removeReceita(indice);
+        receitaAdapter.updateDataSet(receitaDAO.listReceitas());
+
+        txtSomaReceitas.setText("R$ " + receitaDAO.getTotal());
     }
 }

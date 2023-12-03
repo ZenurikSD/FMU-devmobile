@@ -82,8 +82,6 @@ public class DespesaRecViewAdapter extends RecyclerView.Adapter<DespesaRecViewAd
                         int i = holder.getAdapterPosition();
 
                         onDialogPositiveCallback.onDialogPositiveListener(i);
-                        // despesas.remove(holder.getAdapterPosition());
-                        // updateDataSet(despesas);
                     }
                 })
                 .setNegativeButton("Não", new DialogInterface.OnClickListener() {
