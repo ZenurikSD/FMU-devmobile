@@ -4,25 +4,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
-
+import fmu.money.db.modelos.Receita;
 import fmu.money.db.ReceitaFakeDAO;
 import fmu.money.db.UserFakeDAO;
 
-public class ReceitaListActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private RecyclerView receitaRecView;
+public class ReceitaListActivity extends AppCompatActivity implements View.OnClickListener, RemoveDialogListener {
+    private TextView txtSomaReceitas;
+    private FloatingActionButton fabReturnMain, fabAddReceita;
+    private RecyclerView cardsRecView;
     private ReceitaViewAdapter receitaAdapter;
-    private FloatingActionButton fabAddReceita;
     private ReceitaFakeDAO receitaDAO;
-    private ArrayList<Receita> receitaList;
     private UserFakeDAO userDAO;
-    private User user;
 
     @Override
     public void onClick(View v) {
@@ -34,9 +33,6 @@ public class ReceitaListActivity extends AppCompatActivity implements View.OnCli
             // Versão teste, substitua pela implementação do banco
             // Adiciona uma receita ao storage, atualiza o Adapter com a lista nova, incrementa o saldo total
 
-            AddReceitaDialogFragment addModal = new AddReceitaDialogFragment();
-            addModal.show(getSupportFragmentManager(), "addReceita");
-            
             receita = new Receita(1000);
 
             receitaDAO.addReceita(receita);
@@ -62,18 +58,47 @@ public class ReceitaListActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_receita_list);
 
+        // DAOs ====================================================================================
         receitaDAO = new ReceitaFakeDAO();
         userDAO = new UserFakeDAO();
-        user = new User();
 
+        // Componentes simples =====================================================================
+        txtSomaReceitas = findViewById(R.id.txtSomaReceitas);
+
+        // Cards RecyclerView ======================================================================
+        cardsRecView = findViewById(R.id.cardsRecView);
         receitaAdapter = new ReceitaViewAdapter(this);
-        receitaAdapter.updateDataSet(receitaDAO.listReceitas());
 
-        receitaRecView = findViewById(R.id.cardsReceitaRecView);
-        receitaRecView.setAdapter(receitaAdapter);
-        receitaRecView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        cardsRecView.setAdapter(receitaAdapter);
+        cardsRecView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+        // Bottom FABs onClicks ====================================================================
+        fabReturnMain = findViewById(R.id.fabReturnMain);
+        fabReturnMain.setOnClickListener(this);
 
         fabAddReceita = findViewById(R.id.fabAddReceita);
         fabAddReceita.setOnClickListener(this);
+    }
+
+    //Após onCreate, operações que atualizam a UI
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        String nvvalor = "R$ " + receitaDAO.getTotal();
+        txtSomaReceitas.setText(nvvalor);
+
+        receitaAdapter.updateDataSet(receitaDAO.listReceitas());
+    }
+
+    @Override
+    public void onDialogPositiveClick(int indice) {
+        Receita r = receitaDAO.getReceita(indice);
+
+        userDAO.updateUserSaldo( - r.getValor());
+        receitaDAO.removeReceita(indice);
+        receitaAdapter.updateDataSet(receitaDAO.listReceitas());
+
+        txtSomaReceitas.setText("R$ " + receitaDAO.getTotal());
     }
 }

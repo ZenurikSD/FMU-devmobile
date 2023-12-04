@@ -1,8 +1,7 @@
 package fmu.money.db.interfaces;
 
 import java.util.ArrayList;
-
-import fmu.money.Despesa;
+import fmu.money.db.modelos.Despesa;
 
 public interface DespesaDAOInterface {
 
@@ -18,16 +17,12 @@ public interface DespesaDAOInterface {
      */
     boolean addDespesa(Despesa despesa);
 
-    /** Atualiza uma despesa existente
-     * @param despesa
-     * @return TRUE se sucesso
-     */
-    boolean updateDespesa(Despesa despesa);
-
     /** Remove uma despesa existente
      * @param id
      * @return TRUE se sucesso
      */
     boolean removeDespesa(int id);
 
+    /** Retorna o somatório de despesas */
+    double getTotal();
 }

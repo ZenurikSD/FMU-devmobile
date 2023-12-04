@@ -3,35 +3,53 @@ package fmu.money;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 
+import fmu.money.db.UserFakeDAO;
+import fmu.money.db.modelos.Receita;
 import fmu.money.utils.CalendarUtils;
 
 public class ReceitaViewAdapter extends RecyclerView.Adapter<ReceitaViewAdapter.ViewHolder>{
+    private UserFakeDAO userDAO= new UserFakeDAO();
     private ArrayList<Receita> receitas;
     private Context context;
+    private RemoveDialogListener onDialogPositiveCallback;
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView recNome, recData, recValorBrl;
+        private MaterialCardView parent;
+        private MaterialAlertDialogBuilder dialog;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.recNome = itemView.findViewById(R.id.recNome);
             this.recData = itemView.findViewById(R.id.recData);
             this.recValorBrl = itemView.findViewById(R.id.recValorBrl);
+            this.parent = itemView.findViewById(R.id.parent);
         }
     }
 
     public ReceitaViewAdapter(Context context){
         this.context = context;
+
+        try {
+            this.onDialogPositiveCallback = (RemoveDialogListener) context;
+        } catch (ClassCastException cce){
+            throw new ClassCastException("Calling Context must implement OnDialogPositiveCallback");
+        }
     }
 
     @NonNull
@@ -46,7 +64,7 @@ public class ReceitaViewAdapter extends RecyclerView.Adapter<ReceitaViewAdapter.
         String dataString = CalendarUtils.getDataString(receitas.get(position).getData());
         holder.recData.setText(dataString);
 
-        String valorString = String.valueOf(receitas.get(position).getValor());
+        String valorString = "R$ " + receitas.get(position).getValor();
         holder.recValorBrl.setText(valorString);
 
         // Diálogo de remoção

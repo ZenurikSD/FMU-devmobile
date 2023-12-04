@@ -22,14 +22,16 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 
+import fmu.money.db.modelos.Despesa;
 import fmu.money.utils.CalendarUtils;
 
 // Adapter disponibiliza as Views que contém os itens do dataset
 public class DespesaRecViewAdapter extends RecyclerView.Adapter<DespesaRecViewAdapter.ViewHolder>{
-    ArrayList<Despesa> despesas = new ArrayList<>();
+    private ArrayList<Despesa> despesas = new ArrayList<>();
     private Context context;
+    private RemoveDialogListener onDialogPositiveCallback;
 
-    //Subclasse que extende a ViewHolder para instanciar os componentes da View
+    //Subclasse que extende a ViewHolder para instanciar os componentes da View ====================
     public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView category, description, date, valueBrl;
         private MaterialCardView parent;
@@ -45,12 +47,20 @@ public class DespesaRecViewAdapter extends RecyclerView.Adapter<DespesaRecViewAd
         }
     }
 
+
     //Construtor, passa o contexto da activity onde está a RecyclerView para poder user onClick Listeners
     public DespesaRecViewAdapter(Context context) {
         this.context = context;
+
+        try {
+            this.onDialogPositiveCallback = (RemoveDialogListener) context;
+        } catch (ClassCastException cce){
+            throw new ClassCastException("Calling Context must implement OnDialogPositiveCallback");
+        }
     }
 
-    //Métodos implementados do Adapter
+
+    //Métodos implementados do Adapter =============================================================
     // Instancia um ViewHolder da classe acima, criando uma view com o LayoutInflater e passando-a para o construtor
     @NonNull
     @Override
@@ -71,19 +81,20 @@ public class DespesaRecViewAdapter extends RecyclerView.Adapter<DespesaRecViewAd
         holder.valueBrl.setText(formatvalue);
 
         holder.dialog = new MaterialAlertDialogBuilder(context)
-            .setTitle("Remover card?")
-            .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    despesas.remove(holder.getAdapterPosition());
-                    updateDataSet(despesas);
-                }
-            })
-            .setNegativeButton("Não", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
+                .setTitle("Remover card?")
+                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        int i = holder.getAdapterPosition();
+
+                        onDialogPositiveCallback.onDialogPositiveClick(i);
+                    }
+                })
+                .setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
             }).setBackground(new ColorDrawable(Color.parseColor("#d3d3d3")));
 
         AlertDialog dialog = holder.dialog.create();
