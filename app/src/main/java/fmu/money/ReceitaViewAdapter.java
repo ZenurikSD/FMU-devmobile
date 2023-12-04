@@ -1,6 +1,8 @@
 package fmu.money;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +26,7 @@ public class ReceitaViewAdapter extends RecyclerView.Adapter<ReceitaViewAdapter.
     private UserFakeDAO userDAO= new UserFakeDAO();
     private ArrayList<Receita> receitas;
     private Context context;
-    private RemoveDialogListener onDialogPositiveCallback;
+    private RemoveDialogListener removeDialogListener;
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView recNome, recData, recValorBrl;
@@ -44,7 +46,7 @@ public class ReceitaViewAdapter extends RecyclerView.Adapter<ReceitaViewAdapter.
         this.context = context;
 
         try {
-            this.onDialogPositiveCallback = (RemoveDialogListener) context;
+            this.removeDialogListener = (RemoveDialogListener) context;
         } catch (ClassCastException cce){
             throw new ClassCastException("Calling Context must implement OnDialogPositiveCallback");
         }
@@ -74,7 +76,7 @@ public class ReceitaViewAdapter extends RecyclerView.Adapter<ReceitaViewAdapter.
                         //Decrementa o saldo e remove a receita
                         int i = holder.getAdapterPosition();
 
-                        onDialogPositiveCallback.onDialogPositiveClick(i);
+                        removeDialogListener.onDialogPositiveClick(i);
                     }
                 })
                 .setNegativeButton("Não", new DialogInterface.OnClickListener() {
@@ -82,7 +84,7 @@ public class ReceitaViewAdapter extends RecyclerView.Adapter<ReceitaViewAdapter.
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
-            });
+            }).setBackground(new ColorDrawable(Color.parseColor("#d3d3d3")));;
 
         AlertDialog cardDialog = holder.dialog.create();
         holder.parent.setOnClickListener(new View.OnClickListener() {

@@ -15,7 +15,7 @@ import fmu.money.db.modelos.Receita;
 import fmu.money.db.ReceitaFakeDAO;
 import fmu.money.db.UserFakeDAO;
 
-public class ReceitaListActivity extends AppCompatActivity implements View.OnClickListener, RemoveDialogListener {
+public class ReceitaListActivity extends AppCompatActivity implements View.OnClickListener, RemoveDialogListener, AddReceitaDialogFragment.ReceitaDialogListener {
     private TextView txtSomaReceitas;
     private FloatingActionButton fabReturnMain, fabAddReceita;
     private RecyclerView cardsRecView;
@@ -30,18 +30,8 @@ public class ReceitaListActivity extends AppCompatActivity implements View.OnCli
         Receita receita;
 
         if (viewId == R.id.fabAddReceita){
-            // Versão teste, substitua pela implementação do banco
-            // Adiciona uma receita ao storage, atualiza o Adapter com a lista nova, incrementa o saldo total
-
-            receita = new Receita(1000);
-
-            receitaDAO.addReceita(receita);
-            receitaAdapter.updateDataSet(receitaDAO.listReceitas());
-
-            userDAO.updateUserSaldo(receita.getValor());
-
-            String nvvalor = "R$ " + receitaDAO.getTotal();
-            txtSomaReceitas.setText(nvvalor);
+            AddReceitaDialogFragment addModal = new AddReceitaDialogFragment();
+            addModal.show(getSupportFragmentManager(), "addReceita");
 
         } else if (viewId == R.id.fabReturnMain){
             reopenMainActivity = new Intent(this, MainActivity.class);
@@ -97,6 +87,15 @@ public class ReceitaListActivity extends AppCompatActivity implements View.OnCli
 
         userDAO.updateUserSaldo( - r.getValor());
         receitaDAO.removeReceita(indice);
+        receitaAdapter.updateDataSet(receitaDAO.listReceitas());
+
+        txtSomaReceitas.setText("R$ " + receitaDAO.getTotal());
+    }
+
+    @Override
+    public void onReceitaDialogPositiveClick(Receita receita) {
+        userDAO.updateUserSaldo(receita.getValor());
+        receitaDAO.addReceita(receita);
         receitaAdapter.updateDataSet(receitaDAO.listReceitas());
 
         txtSomaReceitas.setText("R$ " + receitaDAO.getTotal());
