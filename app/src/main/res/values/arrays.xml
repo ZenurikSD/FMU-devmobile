@@ -9,8 +9,9 @@
         <item>@string/categInvestimento</item>
         <item>@string/categLazer</item>
         <item>@string/categMoradia</item>
-        <item>@string/categOutro</item>
+        <item>@string/categMercadoria</item>
         <item>@string/categSaúde</item>
         <item>@string/categTransporte</item>
+        <item>@string/categOutro</item>
     </string-array>
 </resources>
