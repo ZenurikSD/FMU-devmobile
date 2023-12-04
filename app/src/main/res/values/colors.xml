@@ -6,4 +6,6 @@
     <color name="cinza_claro">#d3d3d3</color>
     <color name="card_color">#494C4E</color>
     <color name="verde">#24B47D</color>
+    <color name="vermelho">#E07272</color>
+    <color name="preto_neutro">#45474B</color>
 </resources>

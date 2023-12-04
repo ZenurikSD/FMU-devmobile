@@ -89,7 +89,8 @@ public class ReceitaListActivity extends AppCompatActivity implements View.OnCli
         receitaDAO.removeReceita(indice);
         receitaAdapter.updateDataSet(receitaDAO.listReceitas());
 
-        txtSomaReceitas.setText("R$ " + receitaDAO.getTotal());
+        double total = receitaDAO.getTotal();
+        txtSomaReceitas.setText("R$ " + total);
     }
 
     @Override

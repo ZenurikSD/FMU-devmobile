@@ -29,13 +29,13 @@ public class ReceitaViewAdapter extends RecyclerView.Adapter<ReceitaViewAdapter.
     private RemoveDialogListener removeDialogListener;
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView recNome, recData, recValorBrl;
+        private TextView recCardNome, recData, recValorBrl;
         private MaterialCardView parent;
         private MaterialAlertDialogBuilder dialog;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.recNome = itemView.findViewById(R.id.recNome);
+            this.recCardNome = itemView.findViewById(R.id.recCardNome);
             this.recData = itemView.findViewById(R.id.recData);
             this.recValorBrl = itemView.findViewById(R.id.recValorBrl);
             this.parent = itemView.findViewById(R.id.parent);
@@ -61,6 +61,8 @@ public class ReceitaViewAdapter extends RecyclerView.Adapter<ReceitaViewAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ReceitaViewAdapter.ViewHolder holder, int position) {
+        holder.recCardNome.setText(receitas.get(position).getNome());
+
         String dataString = CalendarUtils.getDataString(receitas.get(position).getData());
         holder.recData.setText(dataString);
 

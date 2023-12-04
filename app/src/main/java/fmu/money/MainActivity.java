@@ -95,9 +95,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
+
+        double saldo = userDAO.getUserSaldo();
         txtValorDespesas.setText("R$ " + despesaDAO.getTotal());
-        txtValorSaldo.setText("R$ " + userDAO.getUserSaldo());
+        txtValorSaldo.setText("R$ " + saldo);
         txtValorReceitas.setText("R$ " + receitaDAO.getTotal());
+
+        if (saldo < 0){
+            txtValorSaldo.setTextColor(getColor(R.color.vermelho));
+        } else if (saldo > 0){
+            txtValorSaldo.setTextColor(getColor(R.color.verde));
+        }
 
         despesaAdapter.updateDataSet(despesaDAO.listDespesas());
     }
@@ -127,11 +135,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //Decrementa o saldo
         userDAO.updateUserSaldo( - despesa.getValor());
-        String nvSaldo = "R$ " + userDAO.getUserSaldo();
+        double saldo = userDAO.getUserSaldo();
+        String nvSaldo = "R$ " + saldo;
         txtValorSaldo.setText(nvSaldo);
 
         //Atualiza total de despesas e receitas
         txtValorDespesas.setText("R$ " + despesaDAO.getTotal());
         txtValorReceitas.setText("R$ " + receitaDAO.getTotal());
+
+        if (saldo < 0){
+            txtValorSaldo.setTextColor(getColor(R.color.vermelho));
+        } else if (saldo > 0){
+            txtValorSaldo.setTextColor(getColor(R.color.verde));
+        }
     }
 }
