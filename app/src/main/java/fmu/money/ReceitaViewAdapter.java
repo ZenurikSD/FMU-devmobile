@@ -26,7 +26,7 @@ public class ReceitaViewAdapter extends RecyclerView.Adapter<ReceitaViewAdapter.
     private UserFakeDAO userDAO= new UserFakeDAO();
     private ArrayList<Receita> receitas;
     private Context context;
-    private RemoveDialogListener onDialogPositiveCallback;
+    private RemoveDialogListener removeDialogListener;
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView recNome, recData, recValorBrl;
@@ -46,7 +46,7 @@ public class ReceitaViewAdapter extends RecyclerView.Adapter<ReceitaViewAdapter.
         this.context = context;
 
         try {
-            this.onDialogPositiveCallback = (RemoveDialogListener) context;
+            this.removeDialogListener = (RemoveDialogListener) context;
         } catch (ClassCastException cce){
             throw new ClassCastException("Calling Context must implement OnDialogPositiveCallback");
         }
@@ -76,7 +76,7 @@ public class ReceitaViewAdapter extends RecyclerView.Adapter<ReceitaViewAdapter.
                         //Decrementa o saldo e remove a receita
                         int i = holder.getAdapterPosition();
 
-                        onDialogPositiveCallback.onDialogPositiveListener(i);
+                        removeDialogListener.onDialogPositiveClick(i);
                     }
                 })
                 .setNegativeButton("Não", new DialogInterface.OnClickListener() {

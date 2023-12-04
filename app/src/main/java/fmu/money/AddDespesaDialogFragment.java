@@ -3,34 +3,39 @@ package fmu.money;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import java.util.ArrayList;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 import java.util.Calendar;
 
 import fmu.money.db.modelos.Despesa;
 
-public class AddDialogFragment extends AppCompatDialogFragment {
+public class AddDespesaDialogFragment extends AppCompatDialogFragment {
     private DespesaDialogListener listener;
     private EditText inputDespesaValor, inputDespesaDescr;
-    private Spinner spinnerDespesaCateg;
+    private Spinner spinnerCategorias;
+    private MaterialAlertDialogBuilder dialogBuilder;
+
 
 
     /** Interface que serve de ponte entre o DialogFragment e a MainActivity  */
     public interface DespesaDialogListener{
-        void onDespesaDialogPositiveClick(View modalView, Despesa despesa);
+        void onDespesaDialogPositiveClick(Despesa despesa);
     }
 
 
@@ -49,14 +54,13 @@ public class AddDialogFragment extends AppCompatDialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View modalView = inflater.inflate(R.layout.modal_despesa , null);
 
         //Componentes da view
         inputDespesaValor = modalView.findViewById(R.id.inputDespesaValor);
         inputDespesaDescr = modalView.findViewById(R.id.inputDespesaDescr);
-        spinnerDespesaCateg = modalView.findViewById(R.id.spinnerDespesaCateg);
+        spinnerCategorias = modalView.findViewById(R.id.spinnerCategorias);
 
         //Adapter do spinner pra instanciar os valores na lista
         ArrayAdapter<CharSequence> categoriaAdapter = ArrayAdapter.createFromResource(
@@ -64,10 +68,11 @@ public class AddDialogFragment extends AppCompatDialogFragment {
                 R.array.categorias,
                 androidx.appcompat.R.layout.support_simple_spinner_dropdown_item
         );
-        spinnerDespesaCateg.setAdapter(categoriaAdapter);
+        spinnerCategorias.setAdapter(categoriaAdapter);
 
 
-        builder.setView(modalView)
+        dialogBuilder = new MaterialAlertDialogBuilder(getContext())
+                .setView(modalView)
                 .setPositiveButton("Salvar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -76,14 +81,14 @@ public class AddDialogFragment extends AppCompatDialogFragment {
                         if (inputDespesaValor.getText().length() != 0 && inputDespesaDescr.getText().length() != 0){
 
                             Despesa d = new Despesa(
-                                    spinnerDespesaCateg.getSelectedItem().toString(),
+                                    spinnerCategorias.getSelectedItem().toString(),
                                     Double.parseDouble(inputDespesaValor.getText().toString()),
                                     inputDespesaDescr.getText().toString(),
                                     Calendar.getInstance(),
                                     0
                             );
 
-                            listener.onDespesaDialogPositiveClick(modalView, d);
+                            listener.onDespesaDialogPositiveClick(d);
                         } else {
                             Toast.makeText(getContext(), "Preencha as informações", Toast.LENGTH_SHORT).show();
                         }
@@ -94,7 +99,9 @@ public class AddDialogFragment extends AppCompatDialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
-                });
-        return builder.create();
+                })
+                .setBackground(new ColorDrawable(Color.parseColor("#d3d3d3")));
+
+        return dialogBuilder.create();
     }
 }

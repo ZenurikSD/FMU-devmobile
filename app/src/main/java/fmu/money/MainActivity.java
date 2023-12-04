@@ -7,15 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.Calendar;
 
 import fmu.money.db.ReceitaFakeDAO;
 import fmu.money.db.modelos.Despesa;
@@ -23,7 +17,7 @@ import fmu.money.db.DespesaFakeDAO;
 import fmu.money.db.UserFakeDAO;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, RemoveDialogListener, AddDialogFragment.DespesaDialogListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, RemoveDialogListener, AddDespesaDialogFragment.DespesaDialogListener {
     private RecyclerView cardsRecView;
     private DespesaRecViewAdapter despesaAdapter;
     private ReceitaFakeDAO receitaDAO;
@@ -39,29 +33,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent;
 
         if (viewId == R.id.fabAdd){
-            AddDialogFragment addModal = new AddDialogFragment();
+            AddDespesaDialogFragment addModal = new AddDespesaDialogFragment();
             addModal.show(getSupportFragmentManager(), "add");
-
-            EditText valorModal = findViewById(R.id.valorModal);
-
-            txtValorDespesas = findViewById(R.id.txtValorDespesas);
-
-
-            // Versão teste, substitua pela implementação do banco
-            // Adiciona uma despesa ao storage, atualiza o Adapter com a lista nova, decrementa o saldo total
-
-            Despesa despesa = new Despesa(CATEGORIAS[6], 2500,"Viagem à Buenos Aires", Calendar.getInstance(), 1);
-            despesaDAO.addDespesa(despesa);
-            despesaAdapter.updateDataSet(despesaDAO.listDespesas());
-
-            //Decrementa o saldo
-            userDAO.updateUserSaldo( - despesa.getValor());
-            String nvSaldo = "R$ " + userDAO.getUserSaldo();
-            txtValorSaldo.setText(nvSaldo);
-
-            //Atualiza total de despesas e receitas
-            txtValorDespesas.setText("R$ " + despesaDAO.getTotal());
-            txtValorReceitas.setText("R$ " + receitaDAO.getTotal());
 
         } else if (viewId == R.id.fabInfo){
             intent = new Intent(this, InfoActivity.class);
@@ -148,9 +121,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // Usado para transferir dados do modal para essa Activity
     // Pega os inputs do usuário, transfere para uma despesa, adiciona ela ao banco e atualiza os valores da UI
     @Override
-    public void onDespesaDialogPositiveClick(View modalView, Despesa despesa) {
-
-
+    public void onDespesaDialogPositiveClick(Despesa despesa) {
         despesaDAO.addDespesa(despesa);
         despesaAdapter.updateDataSet(despesaDAO.listDespesas());
 
