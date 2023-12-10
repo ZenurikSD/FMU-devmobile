@@ -55,7 +55,7 @@ public class ReceitaViewAdapter extends RecyclerView.Adapter<ReceitaViewAdapter.
     @NonNull
     @Override
     public ReceitaViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.receita_card_item_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.receita_card_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -78,7 +78,7 @@ public class ReceitaViewAdapter extends RecyclerView.Adapter<ReceitaViewAdapter.
                         //Decrementa o saldo e remove a receita
                         int i = holder.getAdapterPosition();
 
-                        removeDialogListener.onDialogPositiveClick(i);
+                        removeDialogListener.onRemoveDialogPositiveClick(i);
                     }
                 })
                 .setNegativeButton("Não", new DialogInterface.OnClickListener() {

@@ -2,18 +2,14 @@ package fmu.money;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -65,7 +61,7 @@ public class DespesaRecViewAdapter extends RecyclerView.Adapter<DespesaRecViewAd
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item_layout, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.despesa_card_item, parent, false);
         ViewHolder holder = new ViewHolder(itemView);
         return holder;
     }
@@ -87,7 +83,7 @@ public class DespesaRecViewAdapter extends RecyclerView.Adapter<DespesaRecViewAd
                     public void onClick(DialogInterface dialog, int which) {
                         int i = holder.getAdapterPosition();
 
-                        onDialogPositiveCallback.onDialogPositiveClick(i);
+                        onDialogPositiveCallback.onRemoveDialogPositiveClick(i);
                     }
                 })
                 .setNegativeButton("Não", new DialogInterface.OnClickListener() {

@@ -10,7 +10,7 @@ ______
 - [X] Adicionar despesa
 - [X] Adicionar receita
 - [X] Cálculo de saldo
-- [ ] ~~Filtro de visualização mensal~~
+- [ ] Filtro de visualização mensal
 
 #### Detalhes de implementação
 - [X] RecyclerViewAdapter
@@ -18,4 +18,3 @@ ______
 - [ ] Usar Threads pra operações do banco
 - [ ] Implementação de banco de dados
 - [X] Conexão ao banco
-  

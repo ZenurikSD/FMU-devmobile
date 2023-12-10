@@ -11,11 +11,12 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.NumberFormat;
+
 import fmu.money.db.ReceitaFakeDAO;
 import fmu.money.db.modelos.Despesa;
 import fmu.money.db.DespesaFakeDAO;
 import fmu.money.db.UserFakeDAO;
-
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, RemoveDialogListener, AddDespesaDialogFragment.DespesaDialogListener {
     private RecyclerView cardsRecView;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private UserFakeDAO userDAO;
     private FloatingActionButton fabAdd, fabInfo, fabReceitas;
     private TextView txtValorSaldo, txtValorDespesas, txtValorReceitas;
+    private static NumberFormat currencyFormat;
 
     //⚠️ OnClickListeners vão aqui. Não implemente no onCreate ou onStart.
     @Override
@@ -52,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        currencyFormat = NumberFormat.getCurrencyInstance();
 
         //DAOs =====================================================================================
         despesaDAO = new DespesaFakeDAO();
@@ -97,32 +101,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
 
         double saldo = userDAO.getUserSaldo();
-        txtValorDespesas.setText("R$ " + despesaDAO.getTotal());
-        txtValorSaldo.setText("R$ " + saldo);
-        txtValorReceitas.setText("R$ " + receitaDAO.getTotal());
-
-        if (saldo < 0){
-            txtValorSaldo.setTextColor(getColor(R.color.vermelho));
-        } else if (saldo > 0){
-            txtValorSaldo.setTextColor(getColor(R.color.verde));
-        }
+        txtValorDespesas.setText(currencyFormat.format(despesaDAO.getTotal()));
+        txtValorSaldo.setText(currencyFormat.format(saldo));
+        txtValorReceitas.setText(currencyFormat.format(receitaDAO.getTotal()));
 
         despesaAdapter.updateDataSet(despesaDAO.listDespesas());
+
+        updateUI();
     }
 
     // Implementação do método da interface OnDialogPositiveCallback que é chamado dentro do Adapter
     // Usado para alterar dados nessa Activity quando um evento ocorre no Adapter
     @Override
-    public void onDialogPositiveClick(int indice) {
+    public void onRemoveDialogPositiveClick(int indice) {
         Despesa d = despesaDAO.getDespesa(indice);
 
         userDAO.updateUserSaldo(d.getValor());
         despesaDAO.removeDespesa(indice);
 
-        txtValorDespesas.setText("R$ " + despesaDAO.getTotal());
-        txtValorSaldo.setText("R$ " + userDAO.getUserSaldo());
+        txtValorDespesas.setText(currencyFormat.format(despesaDAO.getTotal()));
+        txtValorSaldo.setText(currencyFormat.format(userDAO.getUserSaldo()));
 
         despesaAdapter.updateDataSet(despesaDAO.listDespesas());
+
+        updateUI();
     }
 
     //Implementação do método da interface DespesaDialogFragment
@@ -140,13 +142,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txtValorSaldo.setText(nvSaldo);
 
         //Atualiza total de despesas e receitas
-        txtValorDespesas.setText("R$ " + despesaDAO.getTotal());
-        txtValorReceitas.setText("R$ " + receitaDAO.getTotal());
+        txtValorDespesas.setText(currencyFormat.format(despesaDAO.getTotal()));
+        txtValorReceitas.setText(currencyFormat.format(receitaDAO.getTotal()));
 
+        updateUI();
+    }
+
+    private void updateUI(){
+        double saldo = userDAO.getUserSaldo();
         if (saldo < 0){
             txtValorSaldo.setTextColor(getColor(R.color.vermelho));
         } else if (saldo > 0){
             txtValorSaldo.setTextColor(getColor(R.color.verde));
+        } else {
+            txtValorSaldo.setTextColor(getColor(R.color.black));
         }
+
     }
 }

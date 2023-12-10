@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.NumberFormat;
+
 import fmu.money.db.modelos.Receita;
 import fmu.money.db.ReceitaFakeDAO;
 import fmu.money.db.UserFakeDAO;
@@ -22,6 +24,7 @@ public class ReceitaListActivity extends AppCompatActivity implements View.OnCli
     private ReceitaViewAdapter receitaAdapter;
     private ReceitaFakeDAO receitaDAO;
     private UserFakeDAO userDAO;
+    private static NumberFormat currencyFormat;
 
     @Override
     public void onClick(View v) {
@@ -47,6 +50,8 @@ public class ReceitaListActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_receita_list);
+
+        currencyFormat = NumberFormat.getCurrencyInstance();
 
         // DAOs ====================================================================================
         receitaDAO = new ReceitaFakeDAO();
@@ -75,14 +80,13 @@ public class ReceitaListActivity extends AppCompatActivity implements View.OnCli
     protected void onStart() {
         super.onStart();
 
-        String nvvalor = "R$ " + receitaDAO.getTotal();
-        txtSomaReceitas.setText(nvvalor);
+        txtSomaReceitas.setText( currencyFormat.format(receitaDAO.getTotal()) );
 
         receitaAdapter.updateDataSet(receitaDAO.listReceitas());
     }
 
     @Override
-    public void onDialogPositiveClick(int indice) {
+    public void onRemoveDialogPositiveClick(int indice) {
         Receita r = receitaDAO.getReceita(indice);
 
         userDAO.updateUserSaldo( - r.getValor());
@@ -90,7 +94,7 @@ public class ReceitaListActivity extends AppCompatActivity implements View.OnCli
         receitaAdapter.updateDataSet(receitaDAO.listReceitas());
 
         double total = receitaDAO.getTotal();
-        txtSomaReceitas.setText("R$ " + total);
+        txtSomaReceitas.setText(currencyFormat.format(total));
     }
 
     @Override
@@ -99,6 +103,6 @@ public class ReceitaListActivity extends AppCompatActivity implements View.OnCli
         receitaDAO.addReceita(receita);
         receitaAdapter.updateDataSet(receitaDAO.listReceitas());
 
-        txtSomaReceitas.setText("R$ " + receitaDAO.getTotal());
+        txtSomaReceitas.setText( currencyFormat.format(receitaDAO.getTotal()) );
     }
 }

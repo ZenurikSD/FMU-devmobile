@@ -17,34 +17,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="15dp"
-        android:background="@color/card_color">
-
-        <TextView
-            android:id="@+id/recNome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Entrada"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+        android:background="@color/cinza_claro">
 
         <TextView
             android:id="@+id/recCardNome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:text="Salário"
-            android:layout_marginTop="25dp"/>
+            android:textSize="16sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/recData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/recNome"
-            android:layout_marginTop="20dp"
+            android:layout_below="@id/recCardNome"
+            android:layout_marginTop="5dp"
             android:text="26/11/2023"
-            android:textColor="@color/white"/>
-
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/recValorBrl"
@@ -55,7 +46,7 @@
             android:text="R$ 1.100,99"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/white"/>
+            android:textColor="@color/verde" />
     </RelativeLayout>
 
 </com.google.android.material.card.MaterialCardView>
